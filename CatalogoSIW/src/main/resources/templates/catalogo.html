@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CatalogoSIW</title>
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -17,37 +18,28 @@
                     <span>CatalogoSIW</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#catalogo">Catalogo</a></li>
-                    <li><a href="#chi-siamo">Chi Siamo</a></li>
-                    <li><a href="#contatti">Contatti</a></li>
+                    <li><a th:href="@{/catalogo}">Catalogo</a></li>
+                    <li><a th:href="@{/chi-siamo}">Chi Siamo</a></li>
+                    <li><a th:href="@{/contatti}">Contatti</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Catalogo Prodotti -->
-    <main class="catalogo" id="catalogo">
-        <div class="container">
-            <h1>I Nostri Prodotti</h1>
-            <div class="prodotti-grid">
-                <div class="prodotto-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Prodotto 1">
-                    <h3>Prodotto 1</h3>
-                    <p>Descrizione breve del prodotto.</p>
-                </div>
-                <div class="prodotto-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Prodotto 2">
-                    <h3>Prodotto 2</h3>
-                    <p>Descrizione breve del prodotto.</p>
-                </div>
-                <div class="prodotto-card">
-                    <img src="https://via.placeholder.com/300x200" alt="Prodotto 3">
-                    <h3>Prodotto 3</h3>
-                    <p>Descrizione breve del prodotto.</p>
-                </div>
-            </div>
-        </div>
-    </main>
+	<main class="catalogo" id="catalogo">
+	    <div class="container">
+	        <h1>I Nostri Prodotti</h1>
+	        <div class="prodotti-grid">
+	            <a th:href="@{'/prodotti/' + ${prodotto.id}}" th:each="prodotto : ${prodotti}" class="prodotto-card">
+	            	<img th:src="${prodotto.immagine}" th:alt="${prodotto.nome}">
+	                <h3 th:text="${prodotto.nome}"></h3>
+					<span th:text="'€ ' + ${prodotto.prezzo}">Prezzo</span>
+	            </a>
+	        </div>
+	    </div>
+	</main>
+
 
     <!-- Footer -->
     <footer>

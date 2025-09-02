@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${prodotto.nome} + ' - CatalogoSIW'">Prodotto</title>
+    <link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/prodotto.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-warehouse"></i>
+                    <span>CatalogoSIW</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#catalogo">Catalogo</a></li>
+                    <li><a href="#chi-siamo">Chi Siamo</a></li>
+                    <li><a href="#contatti">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+	<!-- Dettagli prodotto -->
+	<main class="prodotto-dettaglio">
+	    <div class="container">
+	        <div class="prodotto-info">
+	            <!-- Immagine prodotto -->
+	            <div class="prodotto-immagine">
+	                <img th:src="${prodotto.immagine}" th:alt="${prodotto.nome}">
+	            </div>
+
+	            <!-- Dettagli prodotto -->
+	            <div class="prodotto-dettagli">
+	                <h1 th:text="${prodotto.nome}">Nome Prodotto</h1>
+	                <p><strong>Prezzo:</strong> <span th:text="${prodotto.prezzo} + ' €'">99 €</span></p>
+	                <p><strong>Tipologia:</strong> <span th:text="${prodotto.tipologia}">Categoria</span></p>
+
+	                <div class="prodotto-descrizione">
+	                    <h3>Descrizione</h3>
+	                    <p th:text="${prodotto.descrizione}">Testo descrizione...</p>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fa-solid fa-warehouse"></i>
+                    <span>CatalogoSIW</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 CatalogoSIW. Tutti i diritti riservati.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

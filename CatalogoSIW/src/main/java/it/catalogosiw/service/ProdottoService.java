@@ -24,8 +24,8 @@ public class ProdottoService {
         prodottoRepository.deleteById(id);
     }
 
-    public Optional<Prodotto> findById(Long id) {
-        return prodottoRepository.findById(id);
+    public Prodotto findById(Long id) {
+        return prodottoRepository.findById(id).orElse(null);
     }
 
     public List<Prodotto> findAll() {

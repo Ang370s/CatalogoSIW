@@ -37,6 +37,8 @@ public class Prodotto {
 
     @NotBlank(message = "La tipologia è obbligatoria")
     private String tipologia;
+    
+    private String immagine;
 
     @ManyToMany
     private List<Prodotto> prodottiSimili = new ArrayList<>();
@@ -98,6 +100,14 @@ public class Prodotto {
 
 	public void setCommenti(List<Commento> commenti) {
 		this.commenti = commenti;
+	}
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
 	}
 
 	@Override

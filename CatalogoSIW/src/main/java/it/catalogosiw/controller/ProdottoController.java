@@ -4,19 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.catalogosiw.service.ProdottoService;
 
 @Controller
-public class MainController {
+public class ProdottoController {
 	
 	@Autowired
 	private ProdottoService prodottoService;
-
-	@GetMapping("/")
-	public String mostraCatalogo(Model model) {
-		model.addAttribute("prodotti", prodottoService.findAll());
-	    return "catalogo.html";
+	
+	/* UTENTE GENERALE */
+	
+	@GetMapping("prodotti/{id}")
+	public String visualizzaProdotto(@PathVariable Long id, Model model) {
+		model.addAttribute("prodotto", prodottoService.findById(id));
+		return "prodotto.html";
 	}
 	
 }
