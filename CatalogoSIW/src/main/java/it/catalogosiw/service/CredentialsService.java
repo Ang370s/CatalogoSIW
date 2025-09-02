@@ -1,7 +1,5 @@
 package it.catalogosiw.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,7 @@ public class CredentialsService {
         return credentialsRepository.save(credentials);
     }
 
-    public Optional<Credentials> findByUsername(String username) {
-        return credentialsRepository.findByUsername(username);
+    public Credentials findByUsername(String username) {
+        return credentialsRepository.findByUsername(username).orElse(null);
     }
 }
