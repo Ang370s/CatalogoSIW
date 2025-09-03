@@ -16,16 +16,16 @@
             <nav>
 				<div class="logo">
 					<span class="nav-links">
-							<a th:href="@{/}">
+							<a th:href="@{/utente}">
 							<i class="fa-solid fa-warehouse"></i>
 				    		<span>CatalogoSIW</span>
 							</a>
 						</span>
 				    </div>
                 <ul class="nav-links">
-                    <li><a th:href="@{/}">Catalogo</a></li>
-					<li><a th:href="@{/signup}">SIGNUP</a></li>
-					<li><a th:href="@{/login}">LOGIN</a></li>
+                    <li><a th:href="@{/utente}">Catalogo</a></li>
+					<li><a th:href="@{/logout}">LOGOUT</a></li>
+					<li><a class="fa-solid fa-user" th:href="@{/utente/profilo}"></a></li>
                 </ul>
             </nav>
         </div>

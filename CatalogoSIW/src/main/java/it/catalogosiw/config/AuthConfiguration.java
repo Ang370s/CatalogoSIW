@@ -82,9 +82,9 @@ public class AuthConfiguration {
                     idUtente = utente.getId();
 
                     if (isAdmin) {
-                        response.sendRedirect(idUtente != null ? "/admin/" + idUtente + "/home" : "/home");
+                        response.sendRedirect(idUtente != null ? "/admin" : "/home");
                     } else {
-                        response.sendRedirect(idUtente != null ? "/user/" + idUtente + "/home" : "/home");
+                        response.sendRedirect(idUtente != null ? "/utente" : "/home");
                     }
                 })
 

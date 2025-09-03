@@ -15,16 +15,16 @@
             <nav>
                 <div class="logo">
 					<span class="nav-links">
-						<a th:href="@{/}">
+						<a th:href="@{/utente}">
 						<i class="fa-solid fa-warehouse"></i>
                     	<span>CatalogoSIW</span>
 						</a>
 					</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a th:href="@{/}">Catalogo</a></li>
-					<li><a th:href="@{/signup}">SIGNUP</a></li>
-					<li><a th:href="@{/login}">LOGIN</a></li>
+                    <li><a th:href="@{/utente}">Catalogo</a></li>
+					<li><a th:href="@{/logout}">LOGOUT</a></li>
+					<li><a class="fa-solid fa-user" th:href="@{/utente/profilo}"></a></li>
                 </ul>
             </nav>
         </div>
@@ -35,7 +35,7 @@
 	    <div class="container">
 	        <h1>I Nostri Prodotti</h1>
 	        <div class="prodotti-grid">
-	            <a th:href="@{'/prodotti/' + ${prodotto.id}}" th:each="prodotto : ${prodotti}" class="prodotto-card">
+	            <a th:href="@{'/utente/prodotti/' + ${prodotto.id}}" th:each="prodotto : ${prodotti}" class="prodotto-card">
 	            	<img th:src="${prodotto.immagine}" th:alt="${prodotto.nome}">
 	                <h3 th:text="${prodotto.nome}"></h3>
 					<span th:text="'€ ' + ${prodotto.prezzo}">Prezzo</span>

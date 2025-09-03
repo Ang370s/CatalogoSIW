@@ -1,0 +1,162 @@
+/* login.css */
+
+/* contenitore principale del form */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto 50px; /* spazio da header e footer */
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* titolo opzionale */
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+/* form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+form label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--dark);
+}
+
+form input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+form input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.2);
+}
+
+/* errori login */
+.error {
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* bottone */
+button[type="submit"] {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* link a signup */
+.form-container p {
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+.form-container a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.form-container a:hover {
+    color: var(--accent);
+}
+
+/* popup successo */
+.popup {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    font-size: 0.95rem;
+    max-width: 300px;
+    animation: slideIn 0.5s ease;
+    z-index: 2000;
+}
+
+/* popup colori */
+.popup.success {
+    border-left: 6px solid #28a745; /* verde */
+    color: #155724;
+    background-color: #d4edda;
+}
+
+.popup.error {
+    border-left: 6px solid var(--accent); /* rosso */
+    color: var(--accent);
+    background-color: #fddede;
+}
+
+/* pulsante chiusura */
+.popup .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--dark);
+}
+
+/* Quando la checkbox è selezionata, nasconde il popup */
+#chiudi-popup:checked ~ .popup {
+	display: none;
+}
+
+/* animazione popup */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* responsive */
+@media (max-width: 600px) {
+    .form-container {
+        margin: 100px 20px;
+        padding: 30px 20px;
+    }
+
+    .popup {
+        left: 10px;
+        right: 10px;
+        top: 70px;
+    }
+}

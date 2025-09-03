@@ -22,4 +22,12 @@ public class ProdottoController {
 		return "prodotto.html";
 	}
 	
+	/* UTENTE AUTENTICATO */
+	
+	@GetMapping("utente/prodotti/{id}")
+	public String visualizzaProdottoUtente(@PathVariable Long id, Model model) {
+		model.addAttribute("prodotto", prodottoService.findById(id));
+		return "utente/prodotto.html";
+	}
+	
 }

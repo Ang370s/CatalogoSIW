@@ -69,6 +69,22 @@ public class Utente {
 		this.commenti = commenti;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
+	}
+
 	@Override
 	public String toString() {
 		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", commenti=" + commenti + "]";

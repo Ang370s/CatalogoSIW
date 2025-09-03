@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+					<span class="nav-links">
+						<a th:href="@{/}">
+						<i class="fa-solid fa-warehouse"></i>
+                    	<span>CatalogoSIW</span>
+						</a>
+					</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a th:href="@{/}">Catalogo</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+	<main class="main">
+		<!-- Signup -->
+	    <div class="form-container">
+			<form th:action="@{/signup}" method="post" enctype="multipart/form-data" autocomplete="off">
+				
+				<!-- Informazioni utente -->
+				<div class="form-group">
+					<label for="nome">Nome</label>
+					<input type="text" th:field="${utente.nome}" placeholder="Inserisci nome" required minlength="2" autocomplete="off"/>
+					<span class="form-feedback" th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}"></span>
+				</div>
+				
+				<div class="form-group">
+					<label for="cognome">Cognome</label>
+					<input type="text" th:field="${utente.cognome}" placeholder="Inserisci cognome" required minlength="2" autocomplete="off"/>
+					<span class="form-feedback" th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}"></span>
+				</div>
+				
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="text" th:field="${utente.email}" placeholder="Inserisci email" required minlength="2" autocomplete="off"/>
+					<span class="form-feedback" th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}"></span>
+				</div>
+				
+				<!--<div class="form-group">
+				    <label for="immagine">Immagine Profilo</label>
+				    <input type="file" id="immagine" name="immagine" accept="image/*" />
+				    <small>Scegli un'immagine per il tuo profilo (opzionale)</small>
+				</div> -->
+				
+				<!-- Credentials fields -->
+			    <div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" th:field="${credentials.username}" placeholder="Scegli un username" required minlength="8" autocomplete="off"/>
+					<span class="form-feedback" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"></span>
+				</div>
+				
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" th:field="${credentials.password}" placeholder="Scegli una password" required minlength="8"/>
+					<span class="form-feedback" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"></span>
+				</div>
+				
+				<div class="form-group">
+					<label for="confermaPwd">Conferma Password</label>
+				  	<input type="password" name="confermaPwd" placeholder="Conferma password" required minlength="8"/>
+				</div>
+
+			    <button type="submit">Registrati</button>
+			</form>
+
+	        <!-- Link a login -->
+	        <p>Hai già un account? <a th:href="@{/login}">Accedi qui</a></p>
+	    </div>
+	</main>	
+	
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fa-solid fa-warehouse"></i>
+                    <span>CatalogoSIW</span>
+                </div>
+                <div class="social-icons">
+					<a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 CatalogoSIW - Tutti i diritti riservati.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

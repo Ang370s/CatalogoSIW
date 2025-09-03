@@ -29,10 +29,8 @@ public class Credentials {
     @NotBlank(message = "Password obbligatoria")
     private String password;
 
-    @NotBlank(message = "Ruolo obbligatorio")
     private String role;
 
-    @NotNull(message = "L'utente associato è obbligatorio")
     @OneToOne(cascade = CascadeType.ALL)
     private Utente utente;
 
