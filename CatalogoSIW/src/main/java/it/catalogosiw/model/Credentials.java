@@ -10,6 +10,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Credentials {
@@ -24,9 +25,11 @@ public class Credentials {
 
     @NotBlank(message = "Username obbligatorio")
     @Column(unique = true)
+    @Size(min = 4, max = 20, message = "Username troppo corto, almeno 4 caratteri")
     private String username;
-
-    @NotBlank(message = "Password obbligatoria")
+    
+    @Column(nullable = false)
+    @Size(min = 6, max = 100, message = "La password deve contenere almeno 6 caratteri")
     private String password;
 
     private String role;

@@ -1,0 +1,128 @@
+/* modificaProfilo.css */
+
+/* contenitore principale */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto 60px;
+    padding: 40px 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* titolo */
+.utente-nome {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--primary);
+}
+
+/* messaggi */
+.success-message {
+    display: block;
+    margin-bottom: 15px;
+    color: green;
+    font-weight: 600;
+}
+
+.error-message {
+    display: block;
+    margin-bottom: 15px;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* gruppo form */
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.2);
+    outline: none;
+}
+
+/* messaggi di validazione */
+.form-feedback {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: var(--accent);
+}
+
+/* azioni form */
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* bottoni */
+.cta-button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.edit-profile-button {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+}
+
+.edit-profile-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.cancel-button {
+    background: var(--light);
+    border: 2px solid var(--dark);
+    color: var(--dark);
+}
+
+.cancel-button:hover {
+    background: var(--dark);
+    color: white;
+}
+
+/* responsive */
+@media (max-width: 500px) {
+    .form-container {
+        padding: 25px 20px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+}

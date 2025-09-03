@@ -73,27 +73,6 @@ public class AuthenticationController {
             model.addAttribute("credentials", credentials);
 	        return "signup.html";
 	    }
-
-	    if (!credentials.getPassword().equals(confermaPwd)) {
-	    	model.addAttribute("msgError", "Le due password non coincidono");
-            model.addAttribute("utente", utente);
-            model.addAttribute("credentials", credentials);
-	        return "signup.html";
-	    }
-
-	    if (credentials.getPassword().length() < 8) {
-	    	model.addAttribute("msgError", "La password deve avere almeno 8 caratteri");
-            model.addAttribute("utente", utente);
-            model.addAttribute("credentials", credentials);
-	        return "signup.html";
-	    }
-
-	    if (credentials.getUsername().length() < 8) {
-	    	model.addAttribute("msgError", "L'username deve avere almeno 8 caratteri");
-            model.addAttribute("utente", utente);
-            model.addAttribute("credentials", credentials);
-	        return "signup.html";
-	    }
 	    
         credentials.setUtente(utente);
         credentials.setRole(Credentials.DEFAULT_ROLE);

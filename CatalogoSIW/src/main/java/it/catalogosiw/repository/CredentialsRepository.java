@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 import it.catalogosiw.model.Credentials;
-import it.formulasiw.model.Utente;
+import it.catalogosiw.model.Utente;
 
 public interface CredentialsRepository extends CrudRepository<Credentials, Long> {
 	

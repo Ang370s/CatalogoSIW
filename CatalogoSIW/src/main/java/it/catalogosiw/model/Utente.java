@@ -13,6 +13,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Utente {
@@ -23,12 +24,16 @@ public class Utente {
     private Long id;
 
     @NotBlank(message = "Il nome è obbligatorio")
+    @Size(min = 3, max = 50, message = "Il nome deve avere minimo 3 caratteri")
     private String nome;
 
     @NotBlank(message = "Il cognome è obbligatorio")
+    @Size(min = 3, max = 50, message = "Il cognome deve avere minimo 3 caratteri")
     private String cognome;
 
     @Email(message = "Email non valida")
+    @NotBlank(message = "l'email è obbligatoria")
+    @Size(min = 3, max = 100, message = "Email troppo corta")
     private String email;
 
     @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)

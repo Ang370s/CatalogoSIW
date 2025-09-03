@@ -5,9 +5,9 @@ ALTER SEQUENCE credentials_seq INCREMENT BY 1 RESTART WITH 1;
 ALTER SEQUENCE commento_seq INCREMENT BY 1 RESTART WITH 1;
 
 -- UTENTI
-INSERT INTO utente (id, nome, cognome) VALUES (nextval('utente_seq'), 'Admin', 'System');
+INSERT INTO utente (id, nome, cognome, email) VALUES (nextval('utente_seq'), 'Admin', 'System', 'admin@gmail.com');
 
-INSERT INTO utente (id, nome, cognome) VALUES (nextval('utente_seq'), 'Mario', 'Rossi');
+INSERT INTO utente (id, nome, cognome, email) VALUES (nextval('utente_seq'), 'Mario', 'Rossi', 'mario@gmail.com');
 
 -- CREDENTIALS
 INSERT INTO credentials (id, username, password, role, utente_id) VALUES (nextval('credentials_seq'), 'admin', '$2a$10$QsQS93zMmOeRVf6baRoCCe0ERCN4lWmOHwI0E3dXPm95rYb354cpa', 'ADMIN', 1);

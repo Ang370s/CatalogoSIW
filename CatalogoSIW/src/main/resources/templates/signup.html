@@ -42,22 +42,30 @@
 	    <div class="form-container">
 			<form th:action="@{/signup}" method="post" enctype="multipart/form-data" autocomplete="off">
 				
+				<h1 class="utente-nome">Registrati</h1>
+				
+				<!-- Messaggio di successo -->
+				<span th:if="${msgSuccess}" class="success-message" th:text="${msgSuccess}"></span>
+						
+				<!-- Messaggio di errore -->
+				<span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
+				
 				<!-- Informazioni utente -->
 				<div class="form-group">
 					<label for="nome">Nome</label>
-					<input type="text" th:field="${utente.nome}" placeholder="Inserisci nome" required minlength="2" autocomplete="off"/>
+					<input type="text" th:field="${utente.nome}" placeholder="Inserisci nome" autocomplete="off"/>
 					<span class="form-feedback" th:if="${#fields.hasErrors('utente.nome')}" th:errors="${utente.nome}"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="cognome">Cognome</label>
-					<input type="text" th:field="${utente.cognome}" placeholder="Inserisci cognome" required minlength="2" autocomplete="off"/>
+					<input type="text" th:field="${utente.cognome}" placeholder="Inserisci cognome" autocomplete="off"/>
 					<span class="form-feedback" th:if="${#fields.hasErrors('utente.cognome')}" th:errors="${utente.cognome}"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="email">Email</label>
-					<input type="text" th:field="${utente.email}" placeholder="Inserisci email" required minlength="2" autocomplete="off"/>
+					<input type="text" th:field="${utente.email}" placeholder="Inserisci email" autocomplete="off"/>
 					<span class="form-feedback" th:if="${#fields.hasErrors('utente.email')}" th:errors="${utente.email}"></span>
 				</div>
 				
@@ -70,19 +78,19 @@
 				<!-- Credentials fields -->
 			    <div class="form-group">
 					<label for="username">Username</label>
-					<input type="text" th:field="${credentials.username}" placeholder="Scegli un username" required minlength="8" autocomplete="off"/>
+					<input type="text" th:field="${credentials.username}" placeholder="Scegli un username" autocomplete="off"/>
 					<span class="form-feedback" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="password">Password</label>
-					<input type="password" th:field="${credentials.password}" placeholder="Scegli una password" required minlength="8"/>
+					<input type="password" th:field="${credentials.password}" placeholder="Scegli una password"/>
 					<span class="form-feedback" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="confermaPwd">Conferma Password</label>
-				  	<input type="password" name="confermaPwd" placeholder="Conferma password" required minlength="8"/>
+				  	<input type="password" name="confermaPwd" placeholder="Conferma password"/>
 				</div>
 
 			    <button type="submit">Registrati</button>

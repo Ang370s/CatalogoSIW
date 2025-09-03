@@ -6,9 +6,20 @@
     <title>CatalogoSIW</title>
     <link rel="stylesheet" href="/css/global.css">
 	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/popup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+	
+	<!-- Checkbox nascosta che controlla la visibilità -->
+	<input type="checkbox" id="chiudi-popup" hidden>
+
+	<!-- Popup mostrato solo se 'errore' è presente -->
+	<div class="popup success" th:if="${msgSuccess}">
+		<label for="chiudi-popup" class="close-btn" title="Chiudi">&times;</label>
+		<p th:text="${msgSuccess}"></p>
+	</div>
+	
     <!-- Header -->
     <header>
         <div class="container">

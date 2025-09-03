@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import it.catalogosiw.model.Credentials;
 import it.catalogosiw.repository.CredentialsRepository;
-import it.formulasiw.model.Utente;
+import it.catalogosiw.model.Utente;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -29,8 +29,8 @@ public class CredentialsService {
         return credentialsRepository.findByUsername(username).orElse(null);
     }
     
-    public Credentials getCredentialsByUsername(String username) {
-        return credentialsRepository.findByUsername(username).orElse(null);
+    public Credentials findByUtente(Utente utente) {
+        return credentialsRepository.findByUtente(utente).orElse(null);
     }
 
     public List<Credentials> findAll() {
