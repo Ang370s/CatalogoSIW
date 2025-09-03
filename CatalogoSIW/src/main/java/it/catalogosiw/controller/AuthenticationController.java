@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import it.catalogosiw.model.Credentials;
 import it.catalogosiw.model.Utente;
 import it.catalogosiw.service.CredentialsService;
+import it.catalogosiw.service.UtenteService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -22,6 +23,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private CredentialsService credentialsService;
+	
+	@Autowired
+	private UtenteService utenteService;
 	
 	@GetMapping("/login")
 	public String login(@RequestParam(value="error", required=false) boolean error, Model model) {
@@ -58,6 +62,13 @@ public class AuthenticationController {
 
 	    if (credentialsService.existsByUsername(credentials.getUsername())) {
 	    	model.addAttribute("msgError", "Username già in uso");
+            model.addAttribute("utente", utente);
+            model.addAttribute("credentials", credentials);
+	        return "signup.html";
+	    }
+	    
+	    if (utenteService.existsByEmail(utente.getEmail())) {
+	    	model.addAttribute("msgError", "Email già in uso");
             model.addAttribute("utente", utente);
             model.addAttribute("credentials", credentials);
 	        return "signup.html";

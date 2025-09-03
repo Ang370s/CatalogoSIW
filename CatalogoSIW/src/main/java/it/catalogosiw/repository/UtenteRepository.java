@@ -9,5 +9,7 @@ import it.catalogosiw.model.Utente;
 public interface UtenteRepository extends CrudRepository<Utente, Long> {
 
 	Optional<Utente> findByNomeAndCognome(String nome, String cognome);
+
+	boolean existsByEmail(String email);
 	
 }

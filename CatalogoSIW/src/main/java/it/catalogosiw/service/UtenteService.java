@@ -25,4 +25,8 @@ public class UtenteService {
     public Optional<Utente> findByNomeAndCognome(String nome, String cognome) {
         return utenteRepository.findByNomeAndCognome(nome, cognome);
     }
+    
+    public boolean existsByEmail(String email) {
+        return this.utenteRepository.existsByEmail(email);
+    }
 }
