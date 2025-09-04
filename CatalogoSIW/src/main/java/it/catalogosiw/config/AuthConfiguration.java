@@ -51,11 +51,9 @@ public class AuthConfiguration {
                 //.requestMatchers("/**").permitAll()
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, campionati, gare, piloti ai css e alle immagini
                 .requestMatchers(HttpMethod.GET,
-                        "/**", "/index", "/register", "/css/**", "/images/**", // Cambiare "/**" in "/"
-                        "/campionati/**",
-                        "/gare/**",
-                        "/piloti/**",
-                        "/login", "/signup"
+                        "/", "/catalogo", "/signup", "/css/**", "/images/**",
+                        "/login", "/signup",
+                        "prodotti/**"
                     ).permitAll()
 
                 // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
