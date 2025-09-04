@@ -1,5 +1,7 @@
 package it.catalogosiw.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.catalogosiw.model.Commento;
 import it.catalogosiw.model.Prodotto;
@@ -43,20 +46,23 @@ public class ProdottoController {
 	public String visualizzaProdottoUtente(@PathVariable Long id, Model model) {
 		Prodotto prodotto = prodottoService.findById(id);
 	    model.addAttribute("prodotto", prodotto);
-	    model.addAttribute("commenti", commentoService.findByProdotto(prodotto));
-	    model.addAttribute("nuovoCommento", new Commento());
+	    model.addAttribute("commenti", prodotto.getCommenti());
+	    model.addAttribute("utente", utenteService.getUtenteCorrente());
 	    return "utente/prodotto.html";
 	}
 	
 
 	@PostMapping("/utente/prodotti/{id}/commenti")
 	public String aggiungiCommento(@PathVariable Long id,
-	                               @ModelAttribute("nuovoCommento") Commento commento) {
+	                               @RequestParam("nuovoCommento") String nuovoCommento) {
+		Commento commento = new Commento();
 	    Prodotto prodotto = prodottoService.findById(id);
 	    Utente autore = utenteService.findById(utenteService.getUtenteCorrente().getId());
 
 	    commento.setProdotto(prodotto);
 	    commento.setAutore(autore);
+	    commento.setTesto(nuovoCommento);
+	    commento.setDataCreazione(LocalDateTime.now());
 	    //prodotto.addCommento(commento);
 	    //autore.addCommento(commento);
 	    commentoService.save(commento);

@@ -60,13 +60,13 @@
             <!-- Lista commenti -->
             <div th:each="commento : ${commenti}" class="commento">
                 <p>
-                    <strong th:text="${commento.autore.nome} + ' ' + ${commento.autore.cognome}">Utente</strong>
+                    <strong th:text="${commento.autore.credentials.username}">Utente</strong>
                     <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
                 </p>
                 <p th:text="${commento.testo}">Testo commento...</p>
 
                 <!-- Tasto elimina se l'utente è l'autore -->
-                <div th:if="${#authentication.name == commento.autore.credentials.username}">
+                <div th:if="${utente.id == commento.autore.id}">
                     <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti/' + ${commento.id} + '/elimina'}" method="post">
                         <button type="submit" class="btn-elimina">Elimina</button>
                     </form>
@@ -75,7 +75,7 @@
 
             <!-- Form nuovo commento -->
             <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
-                <textarea name="testo" placeholder="Scrivi un commento..." required></textarea>
+                <textarea name="nuovoCommento" placeholder="Scrivi un commento..." required></textarea>
                 <button type="submit" class="cta-button">Pubblica</button>
             </form>
         </div>

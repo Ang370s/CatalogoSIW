@@ -26,7 +26,7 @@ public class Commento {
     private String testo;
     
     //@NotNull(message = "La data di creazione è obbligatoria")
-    private LocalDateTime dataCreazione = LocalDateTime.now();
+    private LocalDateTime dataCreazione;
 
     //@NotNull(message = "L'autore del commento è obbligatorio")
     @ManyToOne
