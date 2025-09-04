@@ -1,6 +1,6 @@
 package it.catalogosiw.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,14 +25,14 @@ public class Commento {
     @Column(length = 2000)
     private String testo;
     
-    @NotNull(message = "La data di creazione è obbligatoria")
-    private LocalDate dataCreazione;
+    //@NotNull(message = "La data di creazione è obbligatoria")
+    private LocalDateTime dataCreazione = LocalDateTime.now();
 
-    @NotNull(message = "L'autore del commento è obbligatorio")
+    //@NotNull(message = "L'autore del commento è obbligatorio")
     @ManyToOne
     private Utente autore;
 
-    @NotNull(message = "Il prodotto associato è obbligatorio")
+    //@NotNull(message = "Il prodotto associato è obbligatorio")
     @ManyToOne
     private Prodotto prodotto;
 
@@ -67,12 +67,12 @@ public class Commento {
 	public void setProdotto(Prodotto prodotto) {
 		this.prodotto = prodotto;
 	}
-	
-	public LocalDate getDataCreazione() {
+
+	public LocalDateTime getDataCreazione() {
 		return dataCreazione;
 	}
 
-	public void setDataCreazione(LocalDate dataCreazione) {
+	public void setDataCreazione(LocalDateTime dataCreazione) {
 		this.dataCreazione = dataCreazione;
 	}
 

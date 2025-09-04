@@ -47,6 +47,43 @@
     border-radius: 5px;
 }
 
+.commenti-container {
+    margin-top: 2rem;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.commento {
+    border-bottom: 1px solid #ddd;
+    padding: 0.8rem 0;
+}
+
+.commento:last-child {
+    border-bottom: none;
+}
+
+.commento .data {
+    font-size: 0.8rem;
+    color: #777;
+    margin-left: 10px;
+}
+
+.commenti-container textarea {
+    width: 100%;
+    min-height: 80px;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.commenti-container button {
+    margin-top: 0.5rem;
+}
+
+
 /* responsive: mobile */
 @media (max-width: 768px) {
     .prodotto-info {

@@ -9,6 +9,7 @@ import it.catalogosiw.model.Commento;
 import it.catalogosiw.model.Prodotto;
 import it.catalogosiw.model.Utente;
 import it.catalogosiw.repository.CommentoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CommentoService {
@@ -16,8 +17,18 @@ public class CommentoService {
     @Autowired
     private CommentoRepository commentoRepository;
 
-    public Commento save(Commento commento) {
+    /*public Commento save(Commento commento) {
         return commentoRepository.save(commento);
+    }*/
+    
+    /*@Transactional
+    public Commento save(Commento commento) {
+        return commentoRepository.saveAndFlush(commento);
+    }*/
+
+    
+    public Commento findById(Long id) {
+    	return commentoRepository.findById(id).orElse(null);
     }
 
     public void delete(Commento commento, Utente utenteCorrente) {
@@ -35,4 +46,30 @@ public class CommentoService {
     public List<Commento> findByAutore(Utente autore) {
         return commentoRepository.findByAutore(autore);
     }
+    
+    /*public void deleteById(Long id) {
+        commentoRepository.deleteById(id);
+    }*/
+    
+    /*@Transactional
+    public void deleteById(Long id) {
+        commentoRepository.deleteById(id);
+    }*/
+    
+    
+    
+    public Commento save(Commento commento) {
+        return commentoRepository.save(commento);
+    }
+
+    public void deleteById(Long id) {
+        if (commentoRepository.existsById(id)) {
+            commentoRepository.deleteById(id);
+        }
+    }
+
+    
+    
+    
+
 }
