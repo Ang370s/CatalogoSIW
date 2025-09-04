@@ -16,15 +16,16 @@ public class CommentoService {
 
     @Autowired
     private CommentoRepository commentoRepository;
-
-    /*public Commento save(Commento commento) {
-        return commentoRepository.save(commento);
-    }*/
     
-    /*@Transactional
     public Commento save(Commento commento) {
-        return commentoRepository.saveAndFlush(commento);
-    }*/
+        return commentoRepository.save(commento);
+    }
+
+    public void deleteById(Long id) {
+        if (commentoRepository.existsById(id)) {
+            commentoRepository.deleteById(id);
+        }
+    }
 
     
     public Commento findById(Long id) {
@@ -46,30 +47,5 @@ public class CommentoService {
     public List<Commento> findByAutore(Utente autore) {
         return commentoRepository.findByAutore(autore);
     }
-    
-    /*public void deleteById(Long id) {
-        commentoRepository.deleteById(id);
-    }*/
-    
-    /*@Transactional
-    public void deleteById(Long id) {
-        commentoRepository.deleteById(id);
-    }*/
-    
-    
-    
-    public Commento save(Commento commento) {
-        return commentoRepository.save(commento);
-    }
-
-    public void deleteById(Long id) {
-        if (commentoRepository.existsById(id)) {
-            commentoRepository.deleteById(id);
-        }
-    }
-
-    
-    
-    
 
 }

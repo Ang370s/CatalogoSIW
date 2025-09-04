@@ -63,8 +63,6 @@ public class ProdottoController {
 	    commento.setAutore(autore);
 	    commento.setTesto(nuovoCommento);
 	    commento.setDataCreazione(LocalDateTime.now());
-	    //prodotto.addCommento(commento);
-	    //autore.addCommento(commento);
 	    commentoService.save(commento);
 	    
 	    return "redirect:/utente/prodotti/" + id;

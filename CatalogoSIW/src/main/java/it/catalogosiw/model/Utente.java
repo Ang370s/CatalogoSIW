@@ -94,11 +94,5 @@ public class Utente {
 	public String toString() {
 		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", commenti=" + commenti + "]";
 	}
-
-	
-	public void addCommento(Commento commento) {
-	    this.commenti.add(commento);
-	    commento.setAutore(this);
-	}
     
 }

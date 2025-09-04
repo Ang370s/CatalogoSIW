@@ -115,12 +115,5 @@ public class Prodotto {
 		return "Prodotto [id=" + id + ", nome=" + nome + ", prezzo=" + prezzo + ", descrizione=" + descrizione
 				+ ", tipologia=" + tipologia + ", prodottiSimili=" + prodottiSimili + ", commenti=" + commenti + "]";
 	}
-
-	
-	public void addCommento(Commento commento) {
-	    this.commenti.add(commento);
-	    commento.setProdotto(this);
-	}
-
 	
 }
