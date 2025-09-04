@@ -4,9 +4,11 @@
     margin: 50px auto 50px; /* spazio da header e footer */
     background: white;
     padding: 40px 30px;
+	border: 4px solid #4e54c8;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.1);
     text-align: center;
+	background: #b8c4f5;
 }
 
 /* titolo opzionale */
@@ -39,6 +41,7 @@ form input {
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
+	background: #dce2fc;
 }
 
 form input:focus {
@@ -48,7 +51,7 @@ form input:focus {
 
 /* errori login */
 .error {
-    color: var(--accent);
+    color: red;
     font-size: 0.95rem;
     margin-bottom: 15px;
     text-align: center;
