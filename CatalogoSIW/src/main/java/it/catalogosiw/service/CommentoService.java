@@ -9,7 +9,6 @@ import it.catalogosiw.model.Commento;
 import it.catalogosiw.model.Prodotto;
 import it.catalogosiw.model.Utente;
 import it.catalogosiw.repository.CommentoRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class CommentoService {
@@ -47,5 +46,9 @@ public class CommentoService {
     public List<Commento> findByAutore(Utente autore) {
         return commentoRepository.findByAutore(autore);
     }
+
+	public Commento findByProdottoAndAutore(Prodotto prodotto, Utente utente) {
+		return commentoRepository.findByProdottoAndAutore(prodotto, utente);
+	}
 
 }

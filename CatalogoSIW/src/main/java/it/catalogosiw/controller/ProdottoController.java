@@ -44,44 +44,18 @@ public class ProdottoController {
 	
 	@GetMapping("/utente/prodotti/{id}")
 	public String visualizzaProdottoUtente(@PathVariable Long id, Model model) {
-		Prodotto prodotto = prodottoService.findById(id);
+	    Prodotto prodotto = prodottoService.findById(id);
+	    Utente utente = utenteService.getUtenteCorrente();
+
+	    // Recupero commento dell'utente (se esiste)
+	    Commento commentoUtente = commentoService.findByProdottoAndAutore(prodotto, utente);
+
 	    model.addAttribute("prodotto", prodotto);
 	    model.addAttribute("commenti", prodotto.getCommenti());
-	    model.addAttribute("utente", utenteService.getUtenteCorrente());
+	    model.addAttribute("utente", utente);
+	    model.addAttribute("commentoUtente", commentoUtente);
+
 	    return "utente/prodotto.html";
 	}
-	
-
-	@PostMapping("/utente/prodotti/{id}/commenti")
-	public String aggiungiCommento(@PathVariable Long id,
-	                               @RequestParam("nuovoCommento") String nuovoCommento) {
-		Commento commento = new Commento();
-	    Prodotto prodotto = prodottoService.findById(id);
-	    Utente autore = utenteService.findById(utenteService.getUtenteCorrente().getId());
-
-	    commento.setProdotto(prodotto);
-	    commento.setAutore(autore);
-	    commento.setTesto(nuovoCommento);
-	    commento.setDataCreazione(LocalDateTime.now());
-	    commentoService.save(commento);
-	    
-	    return "redirect:/utente/prodotti/" + id;
-	}
-
-
-
-	@PostMapping("/utente/prodotti/{id}/commenti/{commentoId}/elimina")
-	public String eliminaCommento(@PathVariable Long id,
-	                              @PathVariable Long commentoId) {
-	    Utente utente = utenteService.findById(utenteService.getUtenteCorrente().getId());
-	    Commento commento = commentoService.findById(commentoId);
-
-	    if (commento != null && commento.getAutore().getId().equals(utente.getId())) {
-	        commentoService.deleteById(commentoId);
-	    }
-
-	    return "redirect:/utente/prodotti/" + id;
-	}
-
 	
 }

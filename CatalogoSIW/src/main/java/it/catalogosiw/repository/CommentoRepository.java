@@ -13,5 +13,7 @@ public interface CommentoRepository extends CrudRepository<Commento, Long> {
 	 List<Commento> findByProdotto(Prodotto prodotto);
 
 	 List<Commento> findByAutore(Utente autore);
+
+	 Commento findByProdottoAndAutore(Prodotto prodotto, Utente utente);
 	
 }
