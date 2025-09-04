@@ -2,7 +2,7 @@
 	margin: 2rem auto 0 auto;
 	margin-bottom: 50px;
     max-width: 1200px;
-    background: #fff;
+    background: #b8c4f5;
     padding: 1.5rem 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -10,8 +10,12 @@
 
 /* singolo commento */
 .commento {
-    border-bottom: 1px solid #e0e0e0;
+	border: 4px solid #4e54c8;
     padding: 1rem 0;
+	margin-top: 20px;
+	padding: 20px;
+	background: #92a6f7;
+	border-radius: 5px;
 }
 
 .commento:last-child {
@@ -27,6 +31,7 @@
 
 .commento p {
     margin: 0.3rem 0;
+	color: black;
 }
 
 /* autore e data */

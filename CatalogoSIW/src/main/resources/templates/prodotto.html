@@ -56,7 +56,7 @@
 
         <!-- Commenti -->
         <div class="commenti-container">
-            <h3>Commenti</h3>
+            <h1>Commenti</h1>
 
             <!-- Lista commenti -->
             <div th:each="commento : ${commenti}" class="commento">
@@ -67,8 +67,10 @@
                 <p th:text="${commento.testo}">Testo commento...</p>
             </div>
 
+			<br>
+			
             <!-- Invito login -->
-            <p class="login-invito">
+            <p class="login-invito", style="color: black;">
                 <a th:href="@{/login}">Accedi</a> per lasciare un commento.
             </p>
         </div>

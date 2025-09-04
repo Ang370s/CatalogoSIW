@@ -17,7 +17,7 @@
 body {
     color: var(--dark);
     line-height: 1.6;
-    background-color: var(--light);
+    background-color: #dce2fc;
 }
 
 /* Header */
@@ -50,11 +50,17 @@ nav {
 }
 
 .nav-links {
+	text-decoration: none;
+	text-decoration-style: none;
+	text-decoration-color: white;
     display: flex;
     list-style: none;
 }
 
 .nav-links li {
+	text-decoration: none;
+	text-decoration-style: none;
+	text-decoration-color: white;
     margin-left: 25px;
 }
 

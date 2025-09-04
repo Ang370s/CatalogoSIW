@@ -39,6 +39,19 @@ main.catalogo h1 {
     color: var(--dark);
 }
 
+.prodotto-card {
+	background: #b8c4f5;
+}
+
+
+/*a {
+	text-decoration: none;
+	text-decoration-style: none;
+	text-decoration-color: white;
+	color:black;
+	background: #b8c4f5;
+}*/
+
 :any-link {
 	text-decoration: none;
 	text-decoration-style: none;

@@ -81,7 +81,8 @@
 			</div>
 	
 			<!-- Se l'utente ha già commentato -->
-			<div th:if="${commentoUtente != null}">
+			<div style="margin-top: 20px"; th:if="${commentoUtente != null}">
+				<hr><br>
 			    <h4>Il tuo commento</h4>
 			    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
 			        <textarea name="nuovoCommento" required
