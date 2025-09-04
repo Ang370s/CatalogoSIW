@@ -61,7 +61,7 @@ public class AuthConfiguration {
                 // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST, "/signup", "/login").permitAll()
                 .requestMatchers("/admin/**").hasAuthority(ADMIN_ROLE)
-                .requestMatchers("/pilota/**").hasAuthority(DEFAULT_ROLE)
+                .requestMatchers("/utente/**").hasAuthority(DEFAULT_ROLE)
                 // tutti gli utenti autenticati possono accedere alle pagine rimanenti 
                 .anyRequest().authenticated()).formLogin(login -> login.loginPage("/login")
                 // LOGIN: qui definiamo il login

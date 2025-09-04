@@ -12,7 +12,7 @@ INSERT INTO utente (id, nome, cognome, email) VALUES (nextval('utente_seq'), 'Ma
 -- CREDENTIALS
 INSERT INTO credentials (id, username, password, role, utente_id) VALUES (nextval('credentials_seq'), 'admin', '$2a$10$QsQS93zMmOeRVf6baRoCCe0ERCN4lWmOHwI0E3dXPm95rYb354cpa', 'ADMIN', 1);
 
-INSERT INTO credentials (id, username, password, role, utente_id) VALUES (nextval('credentials_seq'), 'mario', '$2a$10$QsQS93zMmOeRVf6baRoCCe0ERCN4lWmOHwI0E3dXPm95rYb354cpa', 'DEFAULT', 2);
+INSERT INTO credentials (id, username, password, role, utente_id) VALUES (nextval('credentials_seq'), 'mario', '$2a$10$QsQS93zMmOeRVf6baRoCCe0ERCN4lWmOHwI0E3dXPm95rYb354cpa', 'USER', 2);
 
 -- PRODOTTI
 INSERT INTO prodotto (id, nome, prezzo, descrizione, tipologia) VALUES (nextval('prodotto_seq'), 'Cesoie da giardino', 19.99, 'Ottime per potare rose e arbusti', 'Giardinaggio');

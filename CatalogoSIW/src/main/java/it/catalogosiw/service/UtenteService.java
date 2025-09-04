@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import it.catalogosiw.model.Credentials;
 import it.catalogosiw.model.Utente;
 import it.catalogosiw.repository.UtenteRepository;
 
@@ -35,8 +36,17 @@ public class UtenteService {
         return this.utenteRepository.existsByEmail(email);
     }
 
-	public Utente getUtenteCorrente() {
-    	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	return this.credentialsService.findByUsername(userDetails.getUsername()).getUtente();
+    public Utente getUtenteCorrente() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof org.springframework.security.core.userdetails.UserDetails userDetails) {
+            String username = userDetails.getUsername();
+            Credentials credentials = credentialsService.findByUsername(username);
+            return credentials.getUtente();
+        }
+
+        // se non loggato (principal = "anonymousUser")
+        return null;
     }
+
 }

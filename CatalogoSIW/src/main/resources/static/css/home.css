@@ -39,7 +39,7 @@ main.catalogo h1 {
     color: var(--dark);
 }
 
-:any-link{
+:any-link {
 	text-decoration: none;
 	text-decoration-style: none;
 	text-decoration-color: white;

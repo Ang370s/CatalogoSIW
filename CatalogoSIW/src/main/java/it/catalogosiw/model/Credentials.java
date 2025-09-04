@@ -25,7 +25,8 @@ public class Credentials {
 
     @NotBlank(message = "Username obbligatorio")
     @Column(unique = true)
-    @Size(min = 4, max = 20, message = "Username troppo corto, almeno 4 caratteri")
+    @Size(min = 4, message = "Username troppo corto, almeno 4 caratteri")
+    @Size(max = 20, message = "Username troppo lungo, fino a 5 caratteri")
     private String username;
     
     @Column(nullable = false)

@@ -74,6 +74,13 @@ public class AuthenticationController {
 	        return "signup.html";
 	    }
 	    
+	    if(!credentials.getPassword().equals(confermaPwd)) {
+	    	model.addAttribute("msgError", "Le due password non corrispondono");
+            model.addAttribute("utente", utente);
+            model.addAttribute("credentials", credentials);
+	        return "signup.html";
+	    }
+	    
         credentials.setUtente(utente);
         credentials.setRole(Credentials.DEFAULT_ROLE);
 

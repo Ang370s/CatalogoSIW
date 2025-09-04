@@ -32,9 +32,15 @@ public class UtenteController {
 
 	@GetMapping("/utente")
 	public String mostraCatalogoUtente(Model model) {
-		model.addAttribute("prodotti", prodottoService.findAll());
+	    Utente utente = utenteService.getUtenteCorrente();
+	    if (utente == null) {
+	        return "redirect:/login";
+	    }
+
+	    model.addAttribute("prodotti", prodottoService.findAll());
 	    return "utente/catalogo.html";
 	}
+
 	
 	
 	@GetMapping("/utente/profilo")
