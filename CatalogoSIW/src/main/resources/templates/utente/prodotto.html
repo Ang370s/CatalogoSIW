@@ -6,6 +6,7 @@
     <title th:text="${prodotto.nome} + ' - CatalogoSIW'">Prodotto</title>
     <link rel="stylesheet" href="/css/global.css">
     <link rel="stylesheet" href="/css/prodotto.css">
+	<link rel="stylesheet" href="/css/commenti.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -54,41 +55,40 @@
         </div>
 
 		<!-- Lista commenti -->
-		<div th:each="commento : ${commenti}" class="commento">
-		    <p>
-		        <strong th:text="${commento.autore.credentials.username}">Utente</strong>
-		        <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
-		    </p>
-		    <p th:text="${commento.testo}">Testo commento...</p>
-
-		    <!-- Se l'utente è autore -->
-		    <div th:if="${utente.id == commento.autore.id}">
-		        <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti/' + ${commento.id} + '/elimina'}" method="post">
-		            <button type="submit" class="btn-elimina">Elimina</button>
-		        </form>
-		    </div>
-		</div>
-
-		<!-- Se l'utente NON ha ancora commentato -->
-		<div th:if="${commentoUtente == null}">
-		    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
-		        <textarea name="nuovoCommento" placeholder="Scrivi un commento..." required></textarea>
-		        <button type="submit" class="cta-button">Pubblica</button>
-		    </form>
-		</div>
-
-		<!-- Se l'utente ha già commentato -->
-		<div th:if="${commentoUtente != null}">
-		    <h4>Il tuo commento</h4>
-		    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
-		        <textarea name="nuovoCommento" required
-		                  th:text="${commentoUtente.testo}"></textarea>
-		        <button type="submit" class="cta-button">Modifica</button>
-		    </form>
-
-		    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti/' + ${commentoUtente.id} + '/elimina'}" method="post">
-		        <button type="submit" class="btn-elimina">Elimina</button>
-		    </form>
+		<div class="commenti-container">
+			<h1>Commenti</h1>
+			<div th:each="commento : ${commenti}" class="commento">
+			    <p>
+			        <strong th:text="${commento.autore.credentials.username}">Utente</strong>
+			        <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
+			    </p>
+			    <p th:text="${commento.testo}">Testo commento...</p>
+	
+			    <!-- Se l'utente è autore -->
+			    <div th:if="${utente.id == commento.autore.id}">
+			        <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti/' + ${commento.id} + '/elimina'}" method="post">
+			            <button type="submit" class="btn-elimina">Elimina</button>
+			        </form>
+			    </div>
+			</div>
+	
+			<!-- Se l'utente NON ha ancora commentato -->
+			<div th:if="${commentoUtente == null}">
+			    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
+			        <textarea name="nuovoCommento" placeholder="Scrivi un commento..." required wrap="soft"></textarea>
+			        <button type="submit" class="cta-button">Pubblica</button>
+			    </form>
+			</div>
+	
+			<!-- Se l'utente ha già commentato -->
+			<div th:if="${commentoUtente != null}">
+			    <h4>Il tuo commento</h4>
+			    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
+			        <textarea name="nuovoCommento" required
+			                  th:text="${commentoUtente.testo}"></textarea>
+			        <button type="submit" class="cta-button">Modifica</button>
+			    </form>
+			</div>
 		</div>
 	</main>
 

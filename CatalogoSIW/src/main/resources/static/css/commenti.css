@@ -1,0 +1,119 @@
+.commenti-container {
+	margin: 2rem auto 0 auto;
+	margin-bottom: 50px;
+    max-width: 1200px;
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* singolo commento */
+.commento {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 0;
+}
+
+.commento:last-child {
+    border-bottom: none;
+}
+
+.commenti-container h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: var(--primary);
+	text-align: center;
+}
+
+.commento p {
+    margin: 0.3rem 0;
+}
+
+/* autore e data */
+.commento strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.commento .data {
+    font-size: 0.8rem;
+    color: #777;
+    margin-left: 8px;
+}
+
+/* area scrittura commento */
+.commenti-container textarea {
+    width: 100%;
+    min-height: 80px;
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 0.95rem;
+    white-space: pre-wrap;   /* forza l'andare a capo */
+    word-wrap: break-word;   /* spezza parole troppo lunghe */
+    overflow-wrap: break-word;
+}
+
+/* forza l'andare a capo anche nei commenti salvati */
+.commento p {
+    margin: 0.3rem 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+
+/* bottoni generali */
+.cta-button {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+.cta-button:hover {
+    background: var(--secondary);
+}
+
+/* bottone elimina centrato */
+.btn-elimina {
+    display: block;
+    margin: 1rem auto 0 auto;   /* centra orizzontalmente */
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-elimina:hover {
+    background: #e04a4a;
+}
+
+/* layout quando l'utente modifica il proprio commento */
+.commento-personale {
+    background: var(--light);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+    .cta-button,
+    .btn-elimina {
+        width: auto;           /* resta proporzionato */
+        min-width: 120px;
+        text-align: center;
+    }
+}
