@@ -46,7 +46,7 @@
     display: block;
     font-weight: 600;
     margin-bottom: 6px;
-    color: var(--dark);
+    color: black;
 }
 
 .form-group input {
