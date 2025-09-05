@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.catalogosiw.model.Commento;
 import it.catalogosiw.model.Prodotto;
@@ -29,7 +30,8 @@ public class CommentoController {
 
 	@PostMapping("/utente/prodotti/{id}/commenti")
 	public String aggiungiOmodificaCommento(@PathVariable Long id,
-	                                        @RequestParam("nuovoCommento") String nuovoCommento) {
+	                                        @RequestParam("nuovoCommento") String nuovoCommento,
+	                                        RedirectAttributes redirectAttributes) {
 	    Prodotto prodotto = prodottoService.findById(id);
 	    Utente autore = utenteService.findById(utenteService.getUtenteCorrente().getId());
 
@@ -44,13 +46,16 @@ public class CommentoController {
 
 	    commento.setTesto(nuovoCommento);
 	    commentoService.save(commento);
+	    
+	    redirectAttributes.addFlashAttribute("msgSuccess", "Commento pubblicato");
 
 	    return "redirect:/utente/prodotti/" + id;
 	}
 
 	@PostMapping("/utente/prodotti/{id}/commenti/{commentoId}/elimina")
 	public String eliminaCommento(@PathVariable Long id,
-	                              @PathVariable Long commentoId) {
+	                              @PathVariable Long commentoId,
+	                              RedirectAttributes redirectAttributes) {
 	    Utente utente = utenteService.findById(utenteService.getUtenteCorrente().getId());
 	    Commento commento = commentoService.findById(commentoId);
 
@@ -58,6 +63,8 @@ public class CommentoController {
 	        commentoService.deleteById(commentoId);
 	    }
 
+	    redirectAttributes.addFlashAttribute("msgSuccess", "Commento eliminato");
+	    
 	    return "redirect:/utente/prodotti/" + id;
 	}
 	

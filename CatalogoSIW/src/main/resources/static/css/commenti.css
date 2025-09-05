@@ -38,13 +38,14 @@
 /* autore e data */
 .commento strong {
     color: var(--primary);
-    font-weight: 600;
+    font-weight: 1000;
 }
 
 .commento .data {
     font-size: 0.8rem;
-    color: #777;
+	color: #222222;
     margin-left: 8px;
+	font-weight: 500;
 }
 
 /* area scrittura commento */
@@ -67,6 +68,8 @@
     margin: 0.3rem 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+	color: black;
+	font-weight: 500;
 }
 
 

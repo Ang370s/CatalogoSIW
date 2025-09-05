@@ -31,7 +31,7 @@ public class AuthenticationController {
 	public String login(@RequestParam(value="error", required=false) boolean error, Model model) {
 		
 		if(error)
-			model.addAttribute("msgError", "Username o Password errati.");	
+			model.addAttribute("msgError", "Username o Password errati.");
 		
 		return "login.html";
 	}

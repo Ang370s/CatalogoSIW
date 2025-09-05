@@ -70,7 +70,10 @@ public class UtenteController {
 	public String modificaProfilo(@Valid @ModelAttribute Utente utenteModificato,
 			 					  BindingResult utenteBindingResult, 
 			 					  @Valid @ModelAttribute("credentials") Credentials credentialsModificate,
-			 					  BindingResult credentialsBindingResult, Model model) {
+			 					  BindingResult credentialsBindingResult, 
+			 					  Model model,
+			 					  RedirectAttributes redirectAttributes,
+			 					  HttpServletRequest request) {
 		// Recupero dal DB
 	    Utente utente = utenteService.getUtenteCorrente();
 	    Credentials credentials = credentialsService.findByUtente(utente);
@@ -113,8 +116,18 @@ public class UtenteController {
 	    utenteService.save(utente);
 	    credentialsService.save(credentials);
 	    
-	    if(!username.equals(credentialsModificate.getUsername()))
-	    	return "redirect:/logout";
+	    if(!username.equals(credentialsModificate.getUsername())) {
+	    	
+	    	// Invalido la sessione (logout manuale)
+		    request.getSession().invalidate();
+
+		    // Flash message
+		    redirectAttributes.addFlashAttribute("msgSuccess", "Modificato username con successo. Rieffettuare il login");
+	    	
+	    	/*return "redirect:/logout";*/
+	    }
+	    
+	    redirectAttributes.addFlashAttribute("msgSuccess", "Modifiche effettuate con successo");
 	    
 	    return "redirect:/utente/profilo";
 	}
@@ -122,7 +135,8 @@ public class UtenteController {
 	
 	@PostMapping("/utente/cambiaPassword")
 	public String updateCredentialsUser(@RequestParam @Valid String confirmPwd,
-										@RequestParam @Valid String newPwd, Model model) {
+										@RequestParam @Valid String newPwd, Model model,
+										RedirectAttributes redirectAttributes) {
 		
 		Utente utente = this.utenteService.getUtenteCorrente();
 		Credentials credentials = this.credentialsService.getCredentialsByUtente(utente);
@@ -144,6 +158,9 @@ public class UtenteController {
 		
 		credentials.setPassword(newPwd);
 		this.credentialsService.saveCredentials(credentials);
+		
+		redirectAttributes.addFlashAttribute("msgSuccess", "Password modificata con successo");
+		
 		return "redirect:/utente/profilo";
 	}
 	
