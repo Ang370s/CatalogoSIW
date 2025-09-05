@@ -40,20 +40,38 @@
             </nav>
         </div>
     </header>
+	
+	<!-- Barra di Ricerca -->
+	<div class="search-bar">
+	    <form th:action="@{/}" method="get">
+	        <input type="text" name="q" th:value="${q}" placeholder="Cerca un prodotto...">
+	        <button type="submit"><i class="fa fa-search"></i> Cerca</button>
+	    </form>
+	</div>
 
-    <!-- Catalogo Prodotti -->
+	<!-- Catalogo Prodotti -->
 	<main class="catalogo" id="catalogo">
 	    <div class="container">
 	        <h1>I Nostri Prodotti</h1>
-	        <div class="prodotti-grid">
-	            <a th:href="@{'/prodotti/' + ${prodotto.id}}" th:each="prodotto : ${prodotti}" class="prodotto-card">
-	            	<img th:src="${prodotto.immagine}" th:alt="${prodotto.nome}">
+
+	        <!-- Caso in cui NON ci sono prodotti -->
+	        <p th:if="${#lists.isEmpty(prodotti)}" style="text-align:center; font-size:4rem; margin-top:20px;">
+	            Nessun prodotto trovato ☹️
+	        </p>
+
+	        <!-- Caso in cui CI sono prodotti -->
+	        <div class="prodotti-grid" th:unless="${#lists.isEmpty(prodotti)}">
+	            <a th:href="@{'/prodotti/' + ${prodotto.id}}" 
+	               th:each="prodotto : ${prodotti}" 
+	               class="prodotto-card">
+	                <img th:src="${prodotto.immagine}" th:alt="${prodotto.nome}">
 	                <h3 th:text="${prodotto.nome}"></h3>
-					<span th:text="'€ ' + ${prodotto.prezzo}">Prezzo</span>
+	                <h3 th:text="'€ ' + ${#numbers.formatDecimal(prodotto.prezzo, 1, 2)}">€ 0.00</h3>
 	            </a>
 	        </div>
 	    </div>
 	</main>
+	
 
 
     <!-- Footer -->

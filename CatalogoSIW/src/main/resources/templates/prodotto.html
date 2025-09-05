@@ -43,7 +43,7 @@
                 <!-- Dettagli prodotto -->
                 <div class="prodotto-dettagli">
                     <h1 th:text="${prodotto.nome}">Nome Prodotto</h1>
-                    <p><strong>Prezzo:</strong> <span th:text="${prodotto.prezzo} + ' €'">99 €</span></p>
+                    <p><strong>Prezzo:</strong> <span th:text="'€ ' + ${#numbers.formatDecimal(prodotto.prezzo, 1, 2)}">€ 0.00</span></p>
                     <p><strong>Tipologia:</strong> <span th:text="${prodotto.tipologia}">Categoria</span></p>
 
                     <div class="prodotto-descrizione">
@@ -54,26 +54,31 @@
             </div>
         </div>
 
-        <!-- Commenti -->
-        <div class="commenti-container">
-            <h1>Commenti</h1>
+		<!-- Commenti -->
+		<div class="commenti-container">
+		    <h1>Commenti</h1>
 
-            <!-- Lista commenti -->
-            <div th:each="commento : ${commenti}" class="commento">
-                <p>
-                    <strong th:text="${commento.autore.credentials.username}">Utente</strong>
-                    <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
-                </p>
-                <p th:text="${commento.testo}">Testo commento...</p>
-            </div>
+		    <!-- Nessun commento -->
+		    <p th:if="${#lists.isEmpty(commenti)}" class="nessun-commento">
+		        Questo prodotto non ha ancora commenti 😢
+		    </p>
 
-			<br>
-			
-            <!-- Invito login -->
-            <p class="login-invito", style="color: black;">
-                <a th:href="@{/login}">Accedi</a> per lasciare un commento.
-            </p>
-        </div>
+		    <!-- Lista commenti -->
+		    <div th:each="commento : ${commenti}" class="commento" th:unless="${#lists.isEmpty(commenti)}">
+		        <p>
+		            <strong th:text="${commento.autore.credentials.username}">Utente</strong>
+		            <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
+		        </p>
+		        <p th:text="${commento.testo}">Testo commento...</p>
+		    </div>
+
+		    <br>
+
+		    <!-- Invito login -->
+		    <p class="login-invito" style="color: black;">
+		        <a th:href="@{/login}">Accedi</a> per lasciare un commento.
+		    </p>
+		</div>
     </main>
 
     <!-- Footer -->

@@ -51,4 +51,8 @@ public class ProdottoService {
         prodotto.getProdottiSimili().remove(simile);
         prodottoRepository.save(prodotto);
     }
+
+	public List<Prodotto> findByNomeContainingIgnoreCase(String query) {
+		return prodottoRepository.findByNomeContainingIgnoreCase(query);
+	}
 }

@@ -54,7 +54,7 @@
                 <!-- Dettagli prodotto -->
                 <div class="prodotto-dettagli">
                     <h1 th:text="${prodotto.nome}">Nome Prodotto</h1>
-                    <p><strong>Prezzo:</strong> <span th:text="${prodotto.prezzo} + ' €'">99 €</span></p>
+                    <p><strong>Prezzo:</strong> <span th:text="'€ ' + ${#numbers.formatDecimal(prodotto.prezzo, 1, 2)}">€ 0.00</span></p>
                     <p><strong>Tipologia:</strong> <span th:text="${prodotto.tipologia}">Categoria</span></p>
 
                     <div class="prodotto-descrizione">
@@ -67,40 +67,46 @@
 
 		<!-- Lista commenti -->
 		<div class="commenti-container">
-			<h1>Commenti</h1>
-			<div th:each="commento : ${commenti}" class="commento">
-			    <p>
-			        <strong th:text="${commento.autore.credentials.username}">Utente</strong>
-			        <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
-			    </p>
-			    <p th:text="${commento.testo}">Testo commento...</p>
-	
-			    <!-- Se l'utente è autore -->
-			    <div th:if="${utente.id == commento.autore.id}">
-			        <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti/' + ${commento.id} + '/elimina'}" method="post">
-			            <button type="submit" class="btn-elimina">Elimina</button>
-			        </form>
-			    </div>
-			</div>
-	
-			<!-- Se l'utente NON ha ancora commentato -->
-			<div th:if="${commentoUtente == null}">
-			    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
-			        <textarea name="nuovoCommento" placeholder="Scrivi un commento..." required wrap="soft"></textarea>
-			        <button type="submit" class="cta-button">Pubblica</button>
-			    </form>
-			</div>
-	
-			<!-- Se l'utente ha già commentato -->
-			<div style="margin-top: 20px"; th:if="${commentoUtente != null}">
-				<hr><br>
-			    <h4>Il tuo commento</h4>
-			    <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
-			        <textarea name="nuovoCommento" required
-			                  th:text="${commentoUtente.testo}"></textarea>
-			        <button type="submit" class="cta-button">Modifica</button>
-			    </form>
-			</div>
+		    <h1>Commenti</h1>
+
+		    <!-- Nessun commento -->
+		    <p th:if="${#lists.isEmpty(commenti)}" class="nessun-commento">
+		        Questo prodotto non ha ancora commenti 😢
+		    </p>
+
+		    <!-- Commenti presenti -->
+		    <div th:each="commento : ${commenti}" class="commento" th:unless="${#lists.isEmpty(commenti)}">
+		        <p>
+		            <strong th:text="${commento.autore.credentials.username}">Utente</strong>
+		            <span class="data" th:text="${#temporals.format(commento.dataCreazione, 'dd/MM/yyyy HH:mm')}"></span>
+		        </p>
+		        <p th:text="${commento.testo}">Testo commento...</p>
+
+		        <!-- Se l'utente è autore -->
+		        <div th:if="${utente.id == commento.autore.id}">
+		            <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti/' + ${commento.id} + '/elimina'}" method="post">
+		                <button type="submit" class="btn-elimina">Elimina</button>
+		            </form>
+		        </div>
+		    </div>
+
+		    <!-- Se l'utente NON ha ancora commentato -->
+		    <div th:if="${commentoUtente == null}">
+		        <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
+		            <textarea name="nuovoCommento" placeholder="Scrivi un commento..." required wrap="soft"></textarea>
+		            <button type="submit" class="cta-button">Pubblica</button>
+		        </form>
+		    </div>
+
+		    <!-- Se l'utente ha già commentato -->
+		    <div style="margin-top: 20px" th:if="${commentoUtente != null}">
+		        <hr><br>
+		        <h4>Il tuo commento</h4>
+		        <form th:action="@{'/utente/prodotti/' + ${prodotto.id} + '/commenti'}" method="post">
+		            <textarea name="nuovoCommento" required th:text="${commentoUtente.testo}"></textarea>
+		            <button type="submit" class="cta-button">Modifica</button>
+		        </form>
+		    </div>
 		</div>
 	</main>
 
