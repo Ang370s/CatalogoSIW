@@ -45,12 +45,17 @@ public class UtenteController {
 	
 	@GetMapping("/utente/profilo")
 	public String mostraProfilo(@RequestParam(value = "showPasswordModal", required = false, defaultValue = "false") boolean showPasswordModal,
+								@RequestParam(value = "annulla", required = false, defaultValue = "false") boolean annulla,
 								Model model) {
 		
 		Utente utente = utenteService.getUtenteCorrente();
 		model.addAttribute("utente", utente);
 		model.addAttribute("credentials", this.credentialsService.findByUtente(utente));
 		model.addAttribute("showPasswordModal", showPasswordModal);
+		
+		if (annulla)
+	        model.addAttribute("msgSuccess", "Operazione annullata");
+		
 		return "utente/profilo.html";
 	}
 	
@@ -124,7 +129,7 @@ public class UtenteController {
 		    // Flash message
 		    redirectAttributes.addFlashAttribute("msgSuccess", "Modificato username con successo. Rieffettuare il login");
 	    	
-	    	/*return "redirect:/logout";*/
+	    	return "redirect:/login";
 	    }
 	    
 	    redirectAttributes.addFlashAttribute("msgSuccess", "Modifiche effettuate con successo");
@@ -136,7 +141,8 @@ public class UtenteController {
 	@PostMapping("/utente/cambiaPassword")
 	public String updateCredentialsUser(@RequestParam @Valid String confirmPwd,
 										@RequestParam @Valid String newPwd, Model model,
-										RedirectAttributes redirectAttributes) {
+										RedirectAttributes redirectAttributes,
+										@RequestParam(value = "annulla", required = false, defaultValue = "false") boolean annulla) {
 		
 		Utente utente = this.utenteService.getUtenteCorrente();
 		Credentials credentials = this.credentialsService.getCredentialsByUtente(utente);
@@ -158,6 +164,9 @@ public class UtenteController {
 		
 		credentials.setPassword(newPwd);
 		this.credentialsService.saveCredentials(credentials);
+		
+		if (annulla)
+	        model.addAttribute("msgSuccess", "Operazione annullata");
 		
 		redirectAttributes.addFlashAttribute("msgSuccess", "Password modificata con successo");
 		
