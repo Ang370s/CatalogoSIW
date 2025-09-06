@@ -64,10 +64,9 @@
 	            <a th:href="@{'/prodotti/' + ${prodotto.id}}" 
 	               th:each="prodotto : ${prodotti}" 
 	               class="prodotto-card">
-	                <img th:src="${prodotto.immagine}" th:alt="${prodotto.nome}">
 	                <h3 th:text="${prodotto.nome}"></h3>
 	                <h3 th:text="'€ ' + ${#numbers.formatDecimal(prodotto.prezzo, 1, 2)}">€ 0.00</h3>
-					<span th:text="${prodotto.tipologia}"></span>
+					<span class="tipologia" th:text="${prodotto.tipologia}"></span>
 	            </a>
 	        </div>
 	    </div>

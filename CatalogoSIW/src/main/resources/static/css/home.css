@@ -55,6 +55,20 @@ main.catalogo h1 {
 	color:black;
 }
 
+.tipologia {
+    display: inline-block;
+    background: linear-gradient(135deg, #4e54c8, #8f94fb); /* sfumatura elegante */
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 6px 14px;
+    border-radius: 25px; /* pill shape */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
 /* Barra di ricerca */
 .search-bar {
     text-align: center;
