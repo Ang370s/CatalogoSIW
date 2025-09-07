@@ -45,7 +45,7 @@
 
 .profile-info .value {
     margin-left: 10px;
-    color: #555;
+color: var(--primary);
 }
 
 /* bottoni call-to-action */
