@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -208,6 +209,13 @@ public class AdminController {
 	    prodottoService.save(prodotto);
 	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto aggiunto con successo!");
 	    return "redirect:/admin";
+	}
+	
+	
+	@GetMapping("/admin/prodotti/{id}/eliminaProdotto")
+	public String eliminaProdotto(@PathVariable Long id, Model model) {
+		prodottoService.deleteById(id);
+		return "redirect:/admin/catalogo.html";
 	}
 
 	

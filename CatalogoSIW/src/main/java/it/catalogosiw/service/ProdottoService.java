@@ -19,7 +19,7 @@ public class ProdottoService {
         return prodottoRepository.save(prodotto);
     }
 
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         prodottoRepository.deleteById(id);
     }
 

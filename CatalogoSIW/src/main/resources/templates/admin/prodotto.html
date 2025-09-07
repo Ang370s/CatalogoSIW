@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/prodotto.css">
 	<link rel="stylesheet" href="/css/commenti.css">
 	<link rel="stylesheet" href="/css/popup.css">
+	<link rel="stylesheet" href="/css/tastoElimina.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -41,6 +42,13 @@
             </nav>
         </div>
     </header>
+	
+	<div class="elimina-container">
+		<a class="btn-elimina" 
+			th:href="@{/admin/prodotti/{id}/eliminaProdotto}">
+			Elimina Prodotto
+		</a>
+	</div>
 
 	<!-- Dettagli prodotto -->
 	<main class="prodotto-dettaglio">
