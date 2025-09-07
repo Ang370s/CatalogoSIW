@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilo Utente</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+	<link rel="stylesheet" th:href="@{/css/profilo.css}">
+	<link rel="stylesheet" th:href="@{/css/popup.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+	
+	<!-- Checkbox nascosta che controlla la visibilità -->
+	<input type="checkbox" id="chiudi-popup" hidden>
+	
+	<!-- Popup mostrato solo se 'errore' è presente -->
+	<div class="popup success" th:if="${msgSuccess}">
+		<label for="chiudi-popup" class="close-btn" title="Chiudi">&times;</label>
+		<p th:text="${msgSuccess}"></p>
+	</div>
+
+	<!-- Header -->
+	<header>
+		<div class="container">
+	    	<nav>
+	        	<div class="logo">
+					<span class="nav-links">
+						<a th:href="@{/admin}">
+							<i class="fa-solid fa-warehouse"></i>
+	                    	<span>CatalogoSIW</span>
+						</a>
+					</span>
+				</div>
+	        
+				<ul class="nav-links">
+	        		<li><a th:href="@{/admin}">Catalogo</a></li>
+					<li><a th:href="@{/logout}">LOGOUT</a></li>
+					<li><a class="fa-solid fa-user" th:href="@{/admin/profilo}"></a></li>
+	        	</ul>
+	      	</nav>
+		</div>
+	</header>
+
+    <div class="profile-container">
+        <div class="profile-card">
+			<h1 class="utente-nome" th:text="'Benvenuto, ' + ${utente.nome}">Benvenuto Pilota</h1>
+            <div class="profile-info">
+                    <p><span class="label"><strong>Nome:</strong> <span class="value" th:text="${utente.nome}">Nome</span></p>
+                    <p><span class="label"><strong>Cognome:</strong> <span class="value" th:text="${utente.cognome}">Cognome</span></p>
+					<p><span class="label"><strong>Username:</strong> <span class="value" th:text="${credentials.username}">username</span></p>
+					<p><span class="label"><strong>Email:</strong> <span class="value" th:text="${utente.email}">mail@example.com</span></p>
+			</div>
+
+            
+            <a th:href="@{/admin/modificaProfilo}" class="cta-button edit-profile-button">Modifica Profilo</a>
+			<!-- Bottone/modal per password -->
+			<a th:href="@{/admin/profilo(showPasswordModal=true)}" class="cta-button change-password-button">Cambia Password</a>
+
+		</div>
+
+
+		<div class="elimina-container">
+			<a class="btn-elimina" 
+				th:href="@{/admin/eliminaProfilo}">
+				Elimina Profilo
+			</a>
+		</div>
+	</div>
+		
+	
+	<div th:if="${showPasswordModal == true}"
+           th:classappend="${showPasswordModal} ? '' : 'modal-hidden'"
+           class="modal-overlay"
+		   >
+		   
+           <form class="password-card" th:action="@{/admin/cambiaPassword}" method="post">
+               <h2>Cambia Password</h2>
+			   <span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
+               <label for="newPassword">Nuova password</label>
+               <input
+                   type="password"
+                   id="newPwd"
+                   name="newPwd"
+                   placeholder="Inserisci la nuova password"
+				   minlength="6"
+               />
+               <label for="confirmPassword">Conferma nuova password</label>
+               <input
+                   type="password"
+                   id="confirmPwd"
+                   name="confirmPwd"
+                   placeholder="Conferma la nuova password"
+				   minlength="6"
+               />
+               <div class="password-btns">
+			   		<button type="submit" class="password-btn submit">Conferma</button>
+                    <a th:href="@{/admin/profilo(annulla=true)}" class="password-btn cancel">Annulla</a>
+               </div>
+           </form>
+    </div>
+	
+
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-content">
+				<div class="logo">
+					<i class="fa-solid fa-warehouse"></i>
+					<span>CatalogoSIW</span>
+				</div>
+				<div class="social-icons">
+					<a href="#"><i class="fab fa-whatsapp"></i></a>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+				</div>
+				<div class="copyright">
+					<p>&copy; 2025 CatalogoSIW - Tutti i diritti riservati.</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
