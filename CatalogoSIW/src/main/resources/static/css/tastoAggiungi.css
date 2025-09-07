@@ -1,0 +1,23 @@
+.header-catalogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 75px;
+}
+
+.btn-aggiungi {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.btn-aggiungi:hover {
+    background: linear-gradient(135deg, #3b3fc1, #7b80f2);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}

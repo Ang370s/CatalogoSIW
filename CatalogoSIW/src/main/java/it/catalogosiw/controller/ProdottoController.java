@@ -53,4 +53,22 @@ public class ProdottoController {
 	    return "utente/prodotto.html";
 	}
 	
+	/* ADMIN CONTROLLER */
+	
+	@GetMapping("/admin/prodotti/{id}")
+	public String visualizzaProdottoAdmin(@PathVariable Long id, Model model) {
+	    Prodotto prodotto = prodottoService.findById(id);
+	    Utente utente = utenteService.getUtenteCorrente();
+
+	    // Recupero commento dell'utente (se esiste)
+	    Commento commentoUtente = commentoService.findByProdottoAndAutore(prodotto, utente);
+
+	    model.addAttribute("prodotto", prodotto);
+	    model.addAttribute("commenti", prodotto.getCommenti());
+	    model.addAttribute("utente", utente);
+	    model.addAttribute("commentoUtente", commentoUtente);
+
+	    return "admin/prodotto.html";
+	}
+	
 }

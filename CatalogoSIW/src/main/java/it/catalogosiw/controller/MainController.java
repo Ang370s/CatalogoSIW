@@ -60,7 +60,13 @@ public class MainController {
 	
 	// Home admin
 	@GetMapping("/admin")
-	public String mostraCatalogoAdmin(@RequestParam(value = "q", required = false) String query, Model model) {
+	public String mostraCatalogoAdmin(@RequestParam(value = "q", required = false) String query,
+									  @RequestParam(value = "annulla", required = false, defaultValue = "false") boolean annulla,
+									  Model model) {
+		
+		if (annulla)
+	        model.addAttribute("msgSuccess", "Operazione annullata");
+		
 	    Utente utente = utenteService.getUtenteCorrente();
 	    if (utente == null) {
 	        return "redirect:/login";
@@ -75,7 +81,7 @@ public class MainController {
 
 	    model.addAttribute("prodotti", prodotti);
 	    model.addAttribute("q", query);
-	    return "utente/catalogo.html";
+	    return "admin/catalogo.html";
 	}
 	
 }

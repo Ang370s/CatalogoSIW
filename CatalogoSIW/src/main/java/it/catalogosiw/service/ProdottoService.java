@@ -55,4 +55,8 @@ public class ProdottoService {
 	public List<Prodotto> findByNomeContainingIgnoreCase(String query) {
 		return prodottoRepository.findByNomeContainingIgnoreCase(query);
 	}
+
+	public boolean existsByNomeAndPrezzo(String nome, Double prezzo) {
+		return prodottoRepository.existsByNomeAndPrezzo(nome, prezzo);
+	}
 }

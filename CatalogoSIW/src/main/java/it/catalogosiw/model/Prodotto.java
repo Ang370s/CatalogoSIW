@@ -31,11 +31,15 @@ public class Prodotto {
     @DecimalMin(value = "0", message = "Il prezzo deve essere maggiore di 0")
     private Double prezzo;
 
+    @NotBlank(message = "La descrizione del prodotto è obbligatoria")
+    @Size(min = 10, message = "La descrizione deve avere almeno 10 caratteri")
     @Size(max = 2000, message = "La descrizione non può superare 2000 caratteri")
     @Column(length = 2000)
     private String descrizione;
 
     @NotBlank(message = "La tipologia è obbligatoria")
+    @Size(min = 3, message = "La tipologia deve avere almeno 3 caratteri")
+    @Size(max = 100, message = "La descrizione non può superare 100 caratteri")
     private String tipologia;
     
     private String immagine;

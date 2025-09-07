@@ -1,0 +1,144 @@
+/* signup.css */
+
+/* contenitore principale del form */
+.form-container {
+    max-width: 500px;
+	margin-top: 20;
+    margin: 50px auto 60px; /* spazio da header fixed e dal footer */
+    background: white;
+    padding: 40px 30px;
+	border: 4px solid #4e54c8;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    text-align: center;
+	background: #b8c4f5;
+}
+
+/* titolo opzionale */
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+/* messaggi */
+.success-message {
+    display: block;
+    margin-bottom: 15px;
+    color: green;
+    font-weight: 600;
+}
+
+.error-message {
+    display: block;
+    margin-bottom: 15px;
+    color: red;
+    font-weight: 600;
+}
+
+/* form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* gruppi input */
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+	background: #dce2fc;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(78, 84, 200, 0.2);
+}
+
+/* errori di validazione */
+.form-feedback {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* bottone */
+button[type="submit"] {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* link al login */
+.form-container p {
+    margin-top: 20px;
+    font-size: 0.95rem;
+}
+
+.form-container a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.form-container a:hover {
+    color: var(--accent);
+}
+
+.cta-button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.cancel-button {
+    background: var(--light);
+    border: 2px solid var(--dark);
+    color: var(--dark);
+}
+
+.cancel-button:hover {
+    background: var(--dark);
+    color: white;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+    .form-container {
+        margin: 100px 20px;
+        padding: 30px 20px;
+    }
+}
