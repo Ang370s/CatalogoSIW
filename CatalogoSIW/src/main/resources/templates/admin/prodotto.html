@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/prodotto.css">
 	<link rel="stylesheet" href="/css/commenti.css">
 	<link rel="stylesheet" href="/css/popup.css">
-	<link rel="stylesheet" href="/css/tastoElimina.css">
+	<link rel="stylesheet" href="/css/tastoEliminaModifica.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -43,10 +43,14 @@
         </div>
     </header>
 	
-	<div class="elimina-container">
+	<div class="elimina-modifica-container">
 		<a class="btn-elimina" 
 			th:href="@{/admin/prodotti/{id}/eliminaProdotto(id=${prodotto.id})}">
 			Elimina Prodotto
+		</a>
+		<a class="btn-modifica" 
+			th:href="@{/admin/prodotti/{id}/modificaProdotto(id=${prodotto.id})}">
+			Modifica Prodotto
 		</a>
 	</div>
 

@@ -212,6 +212,47 @@ public class AdminController {
 	}
 	
 	
+	
+	@GetMapping("/admin/prodotti/{id}/modificaProdotto")
+	public String mostraFormModificaProdotto(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+	    Prodotto prodotto = prodottoService.findById(id);
+	    if (prodotto == null) {
+	        redirectAttributes.addFlashAttribute("msgError", "Prodotto non trovato");
+	        return "redirect:/admin";
+	    }
+	    model.addAttribute("prodotto", prodotto);
+	    return "admin/modificaProdotto.html";
+	}
+	
+	@PostMapping("/admin/prodotti/{id}/modificaProdotto")
+	public String modificaProdotto(
+	        @PathVariable Long id,
+	        @Valid @ModelAttribute("prodotto") Prodotto prodotto,
+	        BindingResult prodottoBindingResult,
+	        RedirectAttributes redirectAttributes,
+	        Model model) {
+
+	    // validazione form
+	    if (prodottoBindingResult.hasErrors()) {
+	        model.addAttribute("msgError", "Campi non validi");
+	        return "admin/modificaProdotto.html";
+	    }
+
+	    // controllo duplicato: cerca un prodotto con stesso nome+tipologia
+	    if (prodottoService.existsByNomeAndTipologia(prodotto.getNome(), prodotto.getTipologia())) {
+	        model.addAttribute("msgError", "Prodotto già presente!");
+	        return "admin/formAggiungiProdotto.html";
+	    }
+
+	    // assicuriamoci di aggiornare il record corretto
+	    prodotto.setId(id);
+
+	    prodottoService.save(prodotto);
+	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto modificato con successo!");
+	    return "redirect:/admin";
+	}
+	
+	
 	@GetMapping("/admin/prodotti/{id}/eliminaProdotto")
 	public String eliminaProdotto(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 	    prodottoService.deleteById(id);

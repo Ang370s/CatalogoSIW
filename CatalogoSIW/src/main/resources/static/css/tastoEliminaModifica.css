@@ -1,0 +1,44 @@
+/* contenitore bottoni elimina e modifica */
+.elimina-modifica-container {
+    display: flex;
+    flex-direction: column; /* i bottoni uno sotto l’altro */
+    align-items: center;    /* centrati orizzontalmente */
+    gap: 15px;              /* spazio tra i bottoni */
+    margin-top: 20px;
+}
+
+/* bottone elimina */
+.btn-elimina {
+    background: var(--accent);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 220px;           /* larghezza fissa per coerenza */
+    text-align: center;
+}
+
+.btn-elimina:hover {
+    background: #e04e4e;
+    transform: translateY(-2px);
+}
+
+/* bottone modifica */
+.btn-modifica {
+    background: var(--primary);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 220px;           /* stessa larghezza dell’altro */
+    text-align: center;
+}
+
+.btn-modifica:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
