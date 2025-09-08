@@ -59,4 +59,8 @@ public class ProdottoService {
 	public boolean existsByNomeAndPrezzo(String nome, Double prezzo) {
 		return prodottoRepository.existsByNomeAndPrezzo(nome, prezzo);
 	}
+
+	public boolean existsByNomeAndTipologia(String nome, String tipologia) {
+		return prodottoRepository.existsByNomeAndTipologia(nome, tipologia);
+	}
 }

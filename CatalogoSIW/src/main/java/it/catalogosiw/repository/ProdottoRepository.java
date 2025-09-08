@@ -13,5 +13,7 @@ public interface ProdottoRepository extends CrudRepository<Prodotto, Long> {
     List<Prodotto> findByTipologiaIgnoreCase(String tipologia);
 
 	boolean existsByNomeAndPrezzo(String nome, Double prezzo);
+
+	boolean existsByNomeAndTipologia(String nome, String tipologia);
 	
 }

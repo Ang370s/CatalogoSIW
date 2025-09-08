@@ -45,7 +45,7 @@
 	
 	<div class="elimina-container">
 		<a class="btn-elimina" 
-			th:href="@{/admin/prodotti/{id}/eliminaProdotto}">
+			th:href="@{/admin/prodotti/{id}/eliminaProdotto(id=${prodotto.id})}">
 			Elimina Prodotto
 		</a>
 	</div>

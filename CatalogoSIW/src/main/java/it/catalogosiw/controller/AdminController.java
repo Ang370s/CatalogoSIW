@@ -201,7 +201,7 @@ public class AdminController {
 	    }
 		
 	    // Controllo se esiste già (nome + prezzo uguali)
-	    if (prodottoService.existsByNomeAndPrezzo(prodotto.getNome(), prodotto.getPrezzo())) {
+	    if (prodottoService.existsByNomeAndTipologia(prodotto.getNome(), prodotto.getTipologia())) {
 	        model.addAttribute("msgError", "Prodotto già presente!");
 	        return "admin/formAggiungiProdotto.html";
 	    }
@@ -213,9 +213,10 @@ public class AdminController {
 	
 	
 	@GetMapping("/admin/prodotti/{id}/eliminaProdotto")
-	public String eliminaProdotto(@PathVariable Long id, Model model) {
-		prodottoService.deleteById(id);
-		return "redirect:/admin/catalogo.html";
+	public String eliminaProdotto(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+	    prodottoService.deleteById(id);
+	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto eliminato con successo");
+	    return "redirect:/admin";
 	}
 
 	
