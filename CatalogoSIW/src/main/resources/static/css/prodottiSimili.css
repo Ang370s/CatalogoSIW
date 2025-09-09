@@ -1,0 +1,76 @@
+/* contenitore generale prodotti simili */
+.simili-container {
+    margin: 2rem auto 0 auto;
+    margin-bottom: 50px;
+    max-width: 1200px;
+    background: #b8c4f5; /* leggermente diverso dai commenti */
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border: 4px solid #4e54c8;
+}
+
+/* titolo sezione */
+.simili-container h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+    text-align: center;
+}
+
+/* singolo prodotto simile */
+.simile {
+    border: 3px solid #4e54c8;
+    padding: 1.2rem;
+    margin-top: 20px;
+    background: #92a6f7;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.simile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* testi dentro il box */
+.simile h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    color: #222;
+}
+
+.simile p {
+    margin: 0.3rem 0;
+    color: #111;
+    font-weight: 500;
+}
+
+/* link pulsante */
+.simile .cta-button {
+    display: inline-block;
+    margin-top: 0.8rem;
+    background: 3c43c9;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.simile .cta-button:hover {
+    background: #2029c9;
+}
+
+/* responsive */
+@media (max-width: 600px) {
+    .simile {
+        padding: 1rem;
+    }
+    .simile h3 {
+        font-size: 1.1rem;
+    }
+}
