@@ -247,8 +247,8 @@ public class AdminController {
 	        return "admin/modificaProdotto.html";
 	    }
 
-	    vecchioProdotto.setNome(prodotto.getNome());
-	    vecchioProdotto.setTipologia(prodotto.getTipologia());
+	    //vecchioProdotto.setNome(prodotto.getNome());
+	    //vecchioProdotto.setTipologia(prodotto.getTipologia());
 	    vecchioProdotto.setPrezzo(prodotto.getPrezzo());
 	    vecchioProdotto.setDescrizione(prodotto.getDescrizione());
 
