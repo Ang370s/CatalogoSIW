@@ -35,45 +35,51 @@
 	<!-- Messaggio di errore -->
 	<span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
     
-    <form th:action="@{'/admin/prodotti/' + ${prodotto.id} + '/modificaProdotto'}" method="post">
-		
-		<!-- Non modificabile -->
-		<div class="form-group">
-		    <label for="nome">Nome:</label>
-		    <input type="text" id="nome" th:field="${prodotto.nome}" 
-		           placeholder="Inserisci nome" 
-		           autocomplete="off" 
-		           disabled>
-		    <!-- Campo nascosto per mantenere il valore nel POST -->
-		    <input type="hidden" th:field="${prodotto.nome}">
-		</div>
+	<form th:action="@{'/admin/prodotti/' + ${prodotto.id} + '/modificaProdotto'}" 
+	      method="post" 
+	      th:object="${prodotto}">
 
-		<div class="form-group">
+	    <!-- Nome (non modificabile ma inviato) -->
+	    <div class="form-group">
+	        <label for="nome">Nome:</label>
+	        <input type="text" id="nome" th:field="*{nome}" disabled>
+	        <input type="hidden" th:field="*{nome}">
+	    </div>
+
+	    <!-- Prezzo -->
+	    <div class="form-group">
 	        <label for="prezzo">Prezzo:</label>
-	        <input type="number" step="0.01" id="prezzo" th:field="${prodotto.prezzo}" placeholder="Inserisci prezzo" autocomplete="off">
-			<span class="form-feedback" th:if="${#fields.hasErrors('prodotto.prezzo')}" th:errors="${prodotto.prezzo}"></span>
-		</div>
+	        <input type="number" step="0.01" id="prezzo" th:field="*{prezzo}" placeholder="Inserisci prezzo">
+	        <span class="form-feedback" th:if="${#fields.hasErrors('prezzo')}" th:errors="*{prezzo}"></span>
+	    </div>
 
-		<!-- Non modificabile -->
-		<div class="form-group">
-		    <label for="nome">Tipologia:</label>
-		    <input type="text" id="tipologia" th:field="${prodotto.tipologia}" 
-		           placeholder="Inserisci tipologia" 
-		           autocomplete="off" 
-		           disabled>
-		    <!-- Campo nascosto per mantenere il valore nel POST -->
-		    <input type="hidden" th:field="${prodotto.tipologia}">
-		</div>
-		
-		<div class="form-group">
-			<label for="descrizione">Descrizione:</label>
-			<input type="text" id="descrizione" th:field="${prodotto.descrizione}" placeholder="Inserisci descrizione" autocomplete="off">
-			<span class="form-feedback" th:if="${#fields.hasErrors('prodotto.descrizione')}" th:errors="${prodotto.descrizione}"></span>
-		</div>
+	    <!-- Tipologia (non modificabile ma inviato) -->
+	    <div class="form-group">
+	        <label for="tipologia">Tipologia:</label>
+	        <input type="text" id="tipologia" th:field="*{tipologia}" disabled>
+	        <input type="hidden" th:field="*{tipologia}">
+	    </div>
 
-        <button type="submit" class="btn-submit">Conferma</button>
-        <a th:href="@{/admin(annulla=true)}" class="cta-button cancel-button">Annulla</a>
-    </form>
+	    <!-- Descrizione -->
+	    <div class="form-group">
+	        <label for="descrizione">Descrizione:</label>
+	        <input type="text" id="descrizione" th:field="*{descrizione}" placeholder="Inserisci descrizione">
+	        <span class="form-feedback" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}"></span>
+	    </div>
+
+	    <!-- Prodotti Simili -->
+	    <div class="form-group" th:if="${not prodotti.isEmpty()}">
+	        <label>Prodotti simili:</label>
+	        <div th:each="p : ${prodotti}" class="checkbox-item">
+	            <input type="checkbox" th:id="'prodSim_' + ${p.id}" th:value="${p.id}" name="prodottiSimiliIds"
+	                   th:checked="${#lists.contains(prodotto.prodottiSimili, p)}">
+	            <label th:for="'prodSim_' + ${p.id}" th:text="${p.nome + ' (€ ' + #numbers.formatDecimal(p.prezzo,1,2) + ')'}"></label>
+	        </div>
+	    </div>
+
+	    <button type="submit" class="btn-submit">Conferma</button>
+	    <a th:href="@{/admin(annulla=true)}" class="cta-button cancel-button">Annulla</a>
+	</form>
 </main>
 
 <!-- Footer -->

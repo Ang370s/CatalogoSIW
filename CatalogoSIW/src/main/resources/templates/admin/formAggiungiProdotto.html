@@ -35,7 +35,7 @@
 	<!-- Messaggio di errore -->
 	<span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
     
-    <form th:action="@{/admin/aggiungiProdotto}" method="post" th:object="${prodotto}">
+    <form th:action="@{/admin/aggiungiProdotto}" method="post" th:object="${nuovoProdotto}">
 		
 		<div class="form-group">
 	        <label for="nome">Nome:</label>
@@ -75,16 +75,14 @@
 					<span class="input-icon"></span>
 					<div class="checkbox-group">
 						<div th:each="prodotto : ${prodotti}" class="checkbox-item">
-							<input type="checkbox" 
-							   	th:id="'prodSim_' + ${prodotto.id}"
-							   	th:value="${prodotto.id}"
-							   	name="prodottiSimiliIds">
-							<label th:for="'prodSim_' + ${prodotto.id}"
-							th:text="${prodotto.nome + ' (€ ' + #numbers.formatDecimal(prodotto.prezzo, 1, 2) + ')'}">
-						</label>
+							<input type="checkbox" th:id="'prodSim_' + ${prodotto.id}"
+							       th:value="${prodotto.id}" name="prodottiSimiliIds"
+							       th:checked="${#lists.contains(nuovoProdotto.prodottiSimili, prodotto)}">
+						    <label th:for="'prodSim_' + ${prodotto.id}"
+						           th:text="${prodotto.nome + ' (€ ' + #numbers.formatDecimal(prodotto.prezzo,1,2) + ')'}"></label>
+						</div>
 					</div>
 				</div>
-			</div>
 			<small>Clicca per selezionare i prodotti simili</small>
 		</div>
 	</div>

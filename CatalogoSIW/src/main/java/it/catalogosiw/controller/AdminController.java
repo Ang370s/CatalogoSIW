@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +25,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired
@@ -35,7 +37,7 @@ public class AdminController {
 	@Autowired
 	private ProdottoService prodottoService;
 	
-	@GetMapping("/admin/profilo")
+	@GetMapping("/profilo")
 	public String mostraProfiloAdmin(@RequestParam(value = "showPasswordModal", required = false, defaultValue = "false") boolean showPasswordModal,
 								@RequestParam(value = "annulla", required = false, defaultValue = "false") boolean annulla,
 								Model model) {
@@ -51,7 +53,7 @@ public class AdminController {
 		return "admin/profilo.html";
 	}
 	
-	@GetMapping("/admin/modificaProfilo")
+	@GetMapping("/modificaProfilo")
 	public String mostraModificaProfiloAdmin(Model model) {
 
 		
@@ -62,7 +64,7 @@ public class AdminController {
 		return "admin/modificaProfilo.html";
 	}
 	
-	@PostMapping("/admin/modificaProfilo")
+	@PostMapping("/modificaProfilo")
 	public String modificaProfiloAdmin(@Valid @ModelAttribute Utente utenteModificato,
 			 					  BindingResult utenteBindingResult, 
 			 					  @Valid @ModelAttribute("credentials") Credentials credentialsModificate,
@@ -129,7 +131,7 @@ public class AdminController {
 	}
 	
 	
-	@PostMapping("/admin/cambiaPassword")
+	@PostMapping("/cambiaPassword")
 	public String updateCredentialsUserAdmin(@RequestParam @Valid String confirmPwd,
 										@RequestParam @Valid String newPwd, Model model,
 										RedirectAttributes redirectAttributes,
@@ -164,7 +166,7 @@ public class AdminController {
 		return "redirect:/admin/profilo";
 	}
 	
-	@GetMapping("/admin/eliminaProfilo")
+	@GetMapping("/eliminaProfilo")
 	public String cancellaProfilo(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
 	    Utente utente = utenteService.getUtenteCorrente();
@@ -184,28 +186,45 @@ public class AdminController {
 	
 	/* OPERAZIONI ADMIN */
 	
-	@GetMapping("/admin/aggiungiProdotto")
+	@GetMapping("/aggiungiProdotto")
 	public String mostraFormAggiungiProdotto(Model model) {
-	    model.addAttribute("prodotto", new Prodotto());
+	    Prodotto nuovoProdotto = new Prodotto();
+	    nuovoProdotto.setProdottiSimili(new ArrayList<>()); // inizializzo la lista dei prodotti simili
+	    model.addAttribute("nuovoProdotto", nuovoProdotto);
 	    model.addAttribute("prodotti", prodottoService.findAll());
 	    return "admin/formAggiungiProdotto.html";
 	}
 
-	@PostMapping("/admin/aggiungiProdotto")
-	public String aggiungiProdotto(@Valid @ModelAttribute("newProdotto") Prodotto nuovoProdotto,
+	@PostMapping("/aggiungiProdotto")
+	public String aggiungiProdotto(@Valid @ModelAttribute("nuovoProdotto") Prodotto nuovoProdotto,
             					   BindingResult prodottoBindingResult, RedirectAttributes redirectAttribute, Model model,
             					   @RequestParam(value = "prodottiSimiliIds", required = false) List<Long> prodottiSimiliIds) {
 		
 		if (prodottoBindingResult.hasErrors()) {
 			System.out.println("\n\n\n Utente: " + prodottoBindingResult.getAllErrors() + "\n\n\n");
 	    	model.addAttribute("msgError", "Campi non validi");
-            model.addAttribute("prodotto", nuovoProdotto);
+	    	
+	    	// Ricostruisco la lista dei prodotti simili selezionati
+	        List<Prodotto> prodottiSimiliSelezionati = new ArrayList<>();
+	        if (prodottiSimiliIds != null) {
+	            for (Long id : prodottiSimiliIds) {
+	                Prodotto p = prodottoService.findById(id);
+	                if (p != null) prodottiSimiliSelezionati.add(p);
+	            }
+	        }
+	        
+	        nuovoProdotto.setProdottiSimili(prodottiSimiliSelezionati);
+	    	
+            model.addAttribute("nuovoProdotto", nuovoProdotto);
+            model.addAttribute("prodotti", prodottoService.findAll());
 	        return "admin/formAggiungiProdotto.html";
 	    }
 		
 	    // Controllo se esiste già (nome + prezzo uguali)
 	    if (prodottoService.existsByNomeAndTipologia(nuovoProdotto.getNome(), nuovoProdotto.getTipologia())) {
 	        model.addAttribute("msgError", "Prodotto già presente!");
+	        model.addAttribute("nuovoProdotto", nuovoProdotto);
+	        model.addAttribute("prodotti", prodottoService.findAll());
 	        return "admin/formAggiungiProdotto.html";
 	    }
 	    
@@ -228,7 +247,7 @@ public class AdminController {
 	
 	
 	
-	@GetMapping("/admin/prodotti/{id}/modificaProdotto")
+	@GetMapping("/prodotti/{id}/modificaProdotto")
 	public String mostraFormModificaProdotto(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
 	    Prodotto prodotto = prodottoService.findById(id);
 	    if (prodotto == null) {
@@ -236,47 +255,69 @@ public class AdminController {
 	        return "redirect:/admin";
 	    }
 	    model.addAttribute("prodotto", prodotto);
+	    model.addAttribute("prodotti", prodottoService.findAll());
 	    return "admin/modificaProdotto.html";
 	}
 	
-	@PostMapping("/admin/prodotti/{id}/modificaProdotto")
+	@PostMapping("/prodotti/{id}/modificaProdotto")
 	public String modificaProdotto(
 	        @PathVariable Long id,
-	        @Valid @ModelAttribute("prodotto") Prodotto prodotto,
+	        @Valid @ModelAttribute("prodotto") Prodotto prodottoModificato,
 	        BindingResult prodottoBindingResult,
+	        @RequestParam(value = "prodottiSimiliIds", required = false) List<Long> prodottiSimiliIds,
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
-		
-		Prodotto vecchioProdotto = prodottoService.findById(id);
+	    
+	    Prodotto vecchioProdotto = prodottoService.findById(id);
 
-	    // validazione form
 	    if (prodottoBindingResult.hasErrors()) {
 	        model.addAttribute("msgError", "Campi non validi");
+	        model.addAttribute("prodotti", prodottoService.findAll());
 	        return "admin/modificaProdotto.html";
 	    }
 
-	    // controllo duplicato: cerca un prodotto con stesso nome+tipologia
-	    if ((!(vecchioProdotto.getNome().equals(prodotto.getNome())) || !(vecchioProdotto.getTipologia().equals(prodotto.getTipologia()))) && 
-	    		prodottoService.existsByNomeAndTipologia(prodotto.getNome(), prodotto.getTipologia())) {
+	    if ((!vecchioProdotto.getNome().equals(prodottoModificato.getNome()) ||
+	         !vecchioProdotto.getTipologia().equals(prodottoModificato.getTipologia())) &&
+	        prodottoService.existsByNomeAndTipologia(prodottoModificato.getNome(), prodottoModificato.getTipologia())) {
 	        model.addAttribute("msgError", "Prodotto già presente!");
 	        return "admin/modificaProdotto.html";
 	    }
 
-	    //vecchioProdotto.setNome(prodotto.getNome());
-	    //vecchioProdotto.setTipologia(prodotto.getTipologia());
-	    vecchioProdotto.setPrezzo(prodotto.getPrezzo());
-	    vecchioProdotto.setDescrizione(prodotto.getDescrizione());
+	    vecchioProdotto.setPrezzo(prodottoModificato.getPrezzo());
+	    vecchioProdotto.setDescrizione(prodottoModificato.getDescrizione());
 
-	    prodottoService.save(prodotto);
+	    // aggiorno i prodotti simili
+	    List<Prodotto> nuoviSimili = new ArrayList<>();
+	    if (prodottiSimiliIds != null) {
+	        for (Long simileId : prodottiSimiliIds) {
+	            Prodotto simile = prodottoService.findById(simileId);
+	            if (simile != null) {
+	                nuoviSimili.add(simile);
+	            }
+	        }
+	    }
+	    
+	    vecchioProdotto.setProdottiSimili(nuoviSimili);
+
+	    prodottoService.save(vecchioProdotto);
 	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto modificato con successo!");
 	    return "redirect:/admin";
 	}
-	
-	
-	@GetMapping("/admin/prodotti/{id}/eliminaProdotto")
+
+	@GetMapping("/prodotti/{id}/eliminaProdotto")
 	public String eliminaProdotto(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+	    // Recupero il prodotto
+	    Prodotto prodotto = prodottoService.findById(id);
+
+	    if (prodotto == null) {
+	        redirectAttributes.addFlashAttribute("msgError", "Prodotto non trovato");
+	        return "redirect:/admin";
+	    }
+
+	    // Elimino il prodotto
 	    prodottoService.deleteById(id);
-	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto eliminato con successo");
+
+	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto eliminato con successo!");
 	    return "redirect:/admin";
 	}
 

@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
@@ -45,6 +47,11 @@ public class Prodotto {
     private String immagine;
 
     @ManyToMany
+    @JoinTable(
+    	    name = "prodotti_simili",
+    	    joinColumns = @JoinColumn(name = "prodotto_id"),
+    	    inverseJoinColumns = @JoinColumn(name = "simile_id")
+    	)
     private List<Prodotto> prodottiSimili = new ArrayList<>();
 
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL, orphanRemoval = true)
