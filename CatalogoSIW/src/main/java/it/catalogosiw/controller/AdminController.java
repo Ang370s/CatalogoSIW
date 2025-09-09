@@ -1,5 +1,8 @@
 package it.catalogosiw.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -184,30 +187,42 @@ public class AdminController {
 	@GetMapping("/admin/aggiungiProdotto")
 	public String mostraFormAggiungiProdotto(Model model) {
 	    model.addAttribute("prodotto", new Prodotto());
+	    model.addAttribute("prodotti", prodottoService.findAll());
 	    return "admin/formAggiungiProdotto.html";
 	}
 
 	@PostMapping("/admin/aggiungiProdotto")
-	public String aggiungiProdotto(@Valid @ModelAttribute Prodotto prodotto,
-								   BindingResult prodottoBindingResult,
-	                               RedirectAttributes redirectAttributes,
-	                               Model model) {
+	public String aggiungiProdotto(@Valid @ModelAttribute("newProdotto") Prodotto nuovoProdotto,
+            					   BindingResult prodottoBindingResult, RedirectAttributes redirectAttribute, Model model,
+            					   @RequestParam(value = "prodottiSimiliIds", required = false) List<Long> prodottiSimiliIds) {
 		
 		if (prodottoBindingResult.hasErrors()) {
 			System.out.println("\n\n\n Utente: " + prodottoBindingResult.getAllErrors() + "\n\n\n");
 	    	model.addAttribute("msgError", "Campi non validi");
-            model.addAttribute("prodotto", prodotto);
+            model.addAttribute("prodotto", nuovoProdotto);
 	        return "admin/formAggiungiProdotto.html";
 	    }
 		
 	    // Controllo se esiste già (nome + prezzo uguali)
-	    if (prodottoService.existsByNomeAndTipologia(prodotto.getNome(), prodotto.getTipologia())) {
+	    if (prodottoService.existsByNomeAndTipologia(nuovoProdotto.getNome(), nuovoProdotto.getTipologia())) {
 	        model.addAttribute("msgError", "Prodotto già presente!");
 	        return "admin/formAggiungiProdotto.html";
 	    }
+	    
+	    // Gestione prodotti simili se sono stati selezionati
+	    if (prodottiSimiliIds != null && !prodottiSimiliIds.isEmpty()) {
+	    	List<Prodotto> prodottiSimili = new ArrayList<>();
+	    	for (Long id : prodottiSimiliIds) {
+                Prodotto prodotto = prodottoService.findById(id);
+                if (prodotto != null) {
+                    prodottiSimili.add(prodotto);
+                }
+            }
+	    	nuovoProdotto.setProdottiSimili(prodottiSimili);
+        }
 
-	    prodottoService.save(prodotto);
-	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto aggiunto con successo!");
+	    prodottoService.save(nuovoProdotto);
+	    redirectAttribute.addFlashAttribute("msgSuccess", "Prodotto aggiunto con successo!");
 	    return "redirect:/admin";
 	}
 	

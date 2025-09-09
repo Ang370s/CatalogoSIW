@@ -135,6 +135,65 @@ button[type="submit"]:hover {
     color: white;
 }
 
+/* checkbox-group layout */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* singolo box */
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(180deg, #dce2fc, #b8c4f5);
+    border: 2px solid #4e54c8;
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.checkbox-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #4e54c8; /* colore del check (browser moderni) */
+}
+
+/* label testo */
+.checkbox-item label {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-item .nome {
+    font-weight: 700;
+    color: #0f134a;
+}
+
+.checkbox-item .prezzo {
+    font-size: .9rem;
+    color: #222;
+    margin-top: 4px;
+}
+
+/* hint */
+.hint {
+    display: block;
+    margin-top: 8px;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+
 /* responsive */
 @media (max-width: 600px) {
     .form-container {

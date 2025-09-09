@@ -64,6 +64,31 @@
         <button type="submit" class="btn-submit">Conferma</button>
         <a th:href="@{/admin(annulla=true)}" class="cta-button cancel-button">Annulla</a>
     </form>
+	
+	<!-- Sezione Prodotti Simili (modificata con checkbox) -->
+	<div class="form-section" th:if="${not prodotti.isEmpty()}">
+		<h3>Prodotti Simili (Opzionale)</h3>
+			
+		<div class="form-group">
+			<label>Seleziona prodotti simili</label>
+				<div class="input-group">
+					<span class="input-icon"></span>
+					<div class="checkbox-group">
+						<div th:each="prodotto : ${prodotti}" class="checkbox-item">
+							<input type="checkbox" 
+							   	th:id="'prodSim_' + ${prodotto.id}"
+							   	th:value="${prodotto.id}"
+							   	name="prodottiSimiliIds">
+							<label th:for="'prodSim_' + ${prodotto.id}"
+							th:text="${prodotto.nome + ' (€ ' + #numbers.formatDecimal(prodotto.prezzo, 1, 2) + ')'}">
+						</label>
+					</div>
+				</div>
+			</div>
+			<small>Clicca per selezionare i prodotti simili</small>
+		</div>
+	</div>
+	
 </main>
 
 <!-- Footer -->
