@@ -263,8 +263,11 @@ public class AdminController {
 	        redirectAttributes.addFlashAttribute("msgError", "Prodotto non trovato");
 	        return "redirect:/admin";
 	    }
+	    
+	    List<Prodotto> prodotti = prodottoService.findAll();
+	    prodotti.remove(prodotto);
 	    model.addAttribute("prodotto", prodotto);
-	    model.addAttribute("prodotti", prodottoService.findAll());
+	    model.addAttribute("prodotti", prodotti);
 	    return "admin/modificaProdotto.html";
 	}
 	
