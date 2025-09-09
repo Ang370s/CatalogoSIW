@@ -45,11 +45,11 @@
 	
 	<div class="elimina-modifica-container">
 		<a class="btn-elimina" 
-			th:href="@{/admin/prodotti/{id}/eliminaProdotto(id=${prodotto.id})}">
+			th:href="@{'/admin/prodotti/' + ${prodotto.id} + '/eliminaProdotto'}">
 			Elimina Prodotto
 		</a>
 		<a class="btn-modifica" 
-			th:href="@{/admin/prodotti/{id}/modificaProdotto(id=${prodotto.id})}">
+			th:href="@{'/admin/prodotti/' + ${prodotto.id} + '/modificaProdotto'}">
 			Modifica Prodotto
 		</a>
 	</div>

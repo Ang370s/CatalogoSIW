@@ -35,7 +35,7 @@
 	<!-- Messaggio di errore -->
 	<span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
     
-    <form th:action="@{/admin/aggiungiProdotto}" method="post" th:object="${prodotto}">
+    <form th:action="@{'/admin/prodotti/' + ${prodotto.id} + '/modificaProdotto'}" method="post" th:object="${prodotto}">
 		
 		<div class="form-group">
 	        <label for="nome">Nome:</label>

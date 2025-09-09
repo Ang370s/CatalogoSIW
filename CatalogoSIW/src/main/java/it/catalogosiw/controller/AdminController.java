@@ -231,6 +231,8 @@ public class AdminController {
 	        BindingResult prodottoBindingResult,
 	        RedirectAttributes redirectAttributes,
 	        Model model) {
+		
+		Prodotto vecchioProdotto = prodottoService.findById(id);
 
 	    // validazione form
 	    if (prodottoBindingResult.hasErrors()) {
@@ -239,13 +241,16 @@ public class AdminController {
 	    }
 
 	    // controllo duplicato: cerca un prodotto con stesso nome+tipologia
-	    if (prodottoService.existsByNomeAndTipologia(prodotto.getNome(), prodotto.getTipologia())) {
+	    if ((!(vecchioProdotto.getNome().equals(prodotto.getNome())) || !(vecchioProdotto.getTipologia().equals(prodotto.getTipologia()))) && 
+	    		prodottoService.existsByNomeAndTipologia(prodotto.getNome(), prodotto.getTipologia())) {
 	        model.addAttribute("msgError", "Prodotto già presente!");
-	        return "admin/formAggiungiProdotto.html";
+	        return "admin/modificaProdotto.html";
 	    }
 
-	    // assicuriamoci di aggiornare il record corretto
-	    prodotto.setId(id);
+	    vecchioProdotto.setNome(prodotto.getNome());
+	    vecchioProdotto.setTipologia(prodotto.getTipologia());
+	    vecchioProdotto.setPrezzo(prodotto.getPrezzo());
+	    vecchioProdotto.setDescrizione(prodotto.getDescrizione());
 
 	    prodottoService.save(prodotto);
 	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto modificato con successo!");
