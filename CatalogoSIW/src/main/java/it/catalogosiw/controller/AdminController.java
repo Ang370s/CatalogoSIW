@@ -228,19 +228,28 @@ public class AdminController {
 	        return "admin/formAggiungiProdotto.html";
 	    }
 	    
+	    // Salvo subito il nuovo prodotto per avere l'ID
+	    prodottoService.save(nuovoProdotto);
+
 	    // Gestione prodotti simili se sono stati selezionati
 	    if (prodottiSimiliIds != null && !prodottiSimiliIds.isEmpty()) {
-	    	List<Prodotto> prodottiSimili = new ArrayList<>();
-	    	for (Long id : prodottiSimiliIds) {
-                Prodotto prodotto = prodottoService.findById(id);
-                if (prodotto != null) {
-                    prodottiSimili.add(prodotto);
-                }
-            }
-	    	nuovoProdotto.setProdottiSimili(prodottiSimili);
-        }
+	        List<Prodotto> prodottiSimili = new ArrayList<>();
+	        for (Long id : prodottiSimiliIds) {
+	            Prodotto prodottoSimile = prodottoService.findById(id);
+	            if (prodottoSimile != null) {
+	                prodottiSimili.add(prodottoSimile);
 
-	    prodottoService.save(nuovoProdotto);
+	                // 🔄 Simmetria: aggiungo anche dall'altra parte
+	                if (!prodottoSimile.getProdottiSimili().contains(nuovoProdotto)) {
+	                    prodottoSimile.getProdottiSimili().add(nuovoProdotto);
+	                    prodottoService.save(prodottoSimile);
+	                }
+	            }
+	        }
+	        nuovoProdotto.setProdottiSimili(prodottiSimili);
+	        prodottoService.save(nuovoProdotto); // risalvo aggiornato
+	    }
+	    
 	    redirectAttribute.addFlashAttribute("msgSuccess", "Prodotto aggiunto con successo!");
 	    return "redirect:/admin";
 	}
@@ -286,20 +295,34 @@ public class AdminController {
 	    vecchioProdotto.setPrezzo(prodottoModificato.getPrezzo());
 	    vecchioProdotto.setDescrizione(prodottoModificato.getDescrizione());
 
-	    // aggiorno i prodotti simili
+	 // aggiorno i prodotti simili
 	    List<Prodotto> nuoviSimili = new ArrayList<>();
 	    if (prodottiSimiliIds != null) {
 	        for (Long simileId : prodottiSimiliIds) {
 	            Prodotto simile = prodottoService.findById(simileId);
 	            if (simile != null) {
 	                nuoviSimili.add(simile);
+
+	                // 🔄 Aggiungo la simmetria se non c’è
+	                if (!simile.getProdottiSimili().contains(vecchioProdotto)) {
+	                    simile.getProdottiSimili().add(vecchioProdotto);
+	                    prodottoService.save(simile);
+	                }
 	            }
 	        }
 	    }
-	    
-	    vecchioProdotto.setProdottiSimili(nuoviSimili);
 
+	    // 🔄 Rimuovo la simmetria se non è più presente
+	    for (Prodotto simile : new ArrayList<>(vecchioProdotto.getProdottiSimili())) {
+	        if (!nuoviSimili.contains(simile)) {
+	            simile.getProdottiSimili().remove(vecchioProdotto);
+	            prodottoService.save(simile);
+	        }
+	    }
+
+	    vecchioProdotto.setProdottiSimili(nuoviSimili);
 	    prodottoService.save(vecchioProdotto);
+	    
 	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto modificato con successo!");
 	    return "redirect:/admin";
 	}
@@ -314,7 +337,20 @@ public class AdminController {
 	        return "redirect:/admin";
 	    }
 
-	    // Elimino il prodotto
+	 // 1. Rimuovo questo prodotto dalle liste di simili degli altri prodotti
+	    List<Prodotto> tuttiProdotti = prodottoService.findAll();
+	    for (Prodotto p : tuttiProdotti) {
+	        if (p.getProdottiSimili().contains(prodotto)) {
+	            p.getProdottiSimili().remove(prodotto);
+	            prodottoService.save(p); // aggiorno il prodotto senza il riferimento
+	        }
+	    }
+
+	    // 2. Pulisco anche la lista dei simili del prodotto stesso
+	    prodotto.getProdottiSimili().clear();
+	    prodottoService.save(prodotto);
+
+	    // 3. Ora posso eliminarlo senza violare il vincolo
 	    prodottoService.deleteById(id);
 
 	    redirectAttributes.addFlashAttribute("msgSuccess", "Prodotto eliminato con successo!");
